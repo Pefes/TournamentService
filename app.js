@@ -6,6 +6,7 @@ const express = require( "express" ),
     initializePassport = require( "./utilities/passportConfig" ),
     flash = require( "express-flash" ),
     session = require( "express-session" ),
+    checkTournamentStatus = require( "./middleware/checkTournamentStatus" ),
     indexRoutes = require( "./routes" ),
     tournamentRoutes = require( "./routes/tournaments/tournaments" );
 
@@ -23,6 +24,10 @@ app.use( session({
 }) );
 app.use( passport.initialize() );
 app.use( passport.session() );
+
+
+// custom middleware
+app.use( checkTournamentStatus );
 
 
 //add routes

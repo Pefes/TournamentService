@@ -1,8 +1,11 @@
 <%- include ("../partials/header") %>
 
-
+<input type="text" value="search..." />
 <div>
-    <% tournaments
+    <% tournaments.forEach(tournament => { %>
+        <p><%= tournament.name %></p>
+        <a href="/tournaments/<%= tournament.id %>">More...</a>
+    <% }) %>
 </div>
 
 

@@ -1,4 +1,5 @@
 const Sequelize = require( "Sequelize" );
+const seedDb = require( "./seed" );
 const { DATABASE_NAME, 
     USERNAME, 
     PASSWORD, 
@@ -30,21 +31,27 @@ const sequelize = new Sequelize(
 // import models
 const userModel = require( "../models/user" ),
     tournamentModel = require( "../models/tournament" ),
-    sponsorModel = require( "../models/sponsor" );
+    sponsorModel = require( "../models/sponsor" ),
+    participationModel = require( "../models/participation" );
 
 // create tables
 const User = userModel( sequelize, Sequelize ),
     Tournament = tournamentModel( sequelize, Sequelize ),
-    Sponsor = sponsorModel( sequelize, Sequelize );
+    Sponsor = sponsorModel( sequelize, Sequelize )
+    Participation = participationModel( sequelize, Sequelize );
 
 // database connection
-sequelize.sync({ force: false })
-    .then(() => {
-        console.log( "Database & tables created here!" );
-    });
+sequelize.sync({ force: true })
+.then(() => {
+    seedDb( User, Tournament, Sponsor );
+    console.log( "Database & tables created here!" );
+});
+
 
 module.exports = {
+    sequelize: sequelize,
     User: User,
     Tournament: Tournament,
-    Sponsor: Sponsor
+    Sponsor: Sponsor,
+    Participation: Participation
 };

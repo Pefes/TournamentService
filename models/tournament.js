@@ -8,9 +8,14 @@ const tournament = ( sequelize, type ) => {
         ownerId: type.INTEGER,
         name: type.STRING,
         branch: type.STRING,
-        size: type.INTEGER,
+        maxSize: type.INTEGER,
+        currentSize: type.INTEGER,
         startDate: type.DATE,
         deadlineDate: type.DATE,
+        status: {
+            type: type.STRING,
+            defaultValue: "open"
+        }
     }, {
         timestamps: false
     });

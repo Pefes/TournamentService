@@ -4,9 +4,9 @@
 <form action="/tournaments" method="POST" enctype="multipart/form-data">
     <input name="name" type="text" placeholder="Name"/>
     <input name="branch" type="text" placeholder="Branch"/>
-    <input name="startDate" type="date" placeholder="Start date"/>
+    <input name="startDate" type="datetime-local" placeholder="Start date"/>
     <input name="size" type="number" placeholder="Size"/>
-    <input name="deadlineDate" type="date" placeholder="Deadline"/>
+    <input name="deadlineDate" type="datetime-local" placeholder="Deadline"/>
     <input name="images" type="file" multiple />
     <input type="submit" value="Create" />
 </form>

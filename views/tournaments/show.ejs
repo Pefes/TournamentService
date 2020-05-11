@@ -1,0 +1,15 @@
+<%- include ("../partials/header") %>
+
+
+<div>
+    <p><%= tournament.name %></p>
+    <p><%= tournament.branch %></p>
+    <p><%= tournament.size %></p>
+    <p><%= tournament.startDate %></p>
+    <form action="/tournaments/<%= tournament.id %>/signup" method="POST">
+        <input type="submit" value="Sing Up for the tournament!" />
+    </form>
+</div>
+
+
+<%- include ("../partials/footer") %>

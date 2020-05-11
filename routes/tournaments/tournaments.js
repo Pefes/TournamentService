@@ -6,9 +6,10 @@ const express = require( "express" ),
     { isLoggedIn, isNotLoggedIn } = require( "../../utilities/passportUtilities" );
 
 // show all tournaments
-router.get("/tournaments", ( req, res ) => {
-    
-    res.render( "./tournaments/index.ejs" );
+router.get("/tournaments", async ( req, res ) => {
+    const tournaments = await db.Tournament.findAll();
+    const sponsors = await db.Sponsor.findAll();
+    res.render( "./tournaments/index.ejs", { tournaments: tournaments, sponsors: sponsors } );
 });
 
 // create new tournament
@@ -44,6 +45,33 @@ router.post("/tournaments", isLoggedIn, upload.any( "images" ), ( req, res ) => 
 // get form for new tournament
 router.get("/tournaments/new", isLoggedIn, ( req, res ) => {
     res.render( "./tournaments/new.ejs" );
+});
+
+// get single tournament
+router.get("/tournaments/:id", async ( req, res ) => {
+    const tournament = await db.Tournament.findOne({ where: { id: req.params.id } });
+
+    res.render( "./tournaments/show.ejs", { tournament: tournament } );
+});
+
+router.post("/tournaments/:id/signup", isLoggedIn, async ( req, res ) => {
+    const t = await db.sequelize.transaction();
+
+    try {
+        const { currentSize } = await db.Tournament.findOne({ where: { id: req.params.id } }, { transaction: t });
+        
+        if ( currentSize > 0 ) {
+            await db.Participation.create({ tournamentId: req.params.id, userId: req.user.id }, { transaction: t });
+            await db.Tournament.update({ currentSize: currentSize - 1 }, { where: { id: req.params.id } });
+        }
+
+        await t.commit();
+        res.redirect( "/tournaments/" + req.params.id );
+    }
+    catch ( error ) {
+        await t.rollback();
+        res.redirect( "/tournaments/" + req.params.id );
+    }
 });
 
 
