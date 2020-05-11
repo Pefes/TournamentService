@@ -1,0 +1,14 @@
+<%- include ("../partials/header") %>
+
+
+<form action="/tournaments" method="POST">
+    <input name="name" type="text" placeholder="Name"/>
+    <input name="branch" type="text" placeholder="Branch"/>
+    <input name="startDate" type="date" placeholder="Start date"/>
+    <input name="size" type="number" placeholder="Size"/>
+    <input name="deadlineDate" type="date" placeholder="Deadline"/>
+    <input type="submit" value="Create" />
+</form>
+
+
+<%- include ("../partials/footer") %>
