@@ -50,10 +50,12 @@ router.get("/tournaments/new", isLoggedIn, ( req, res ) => {
 // get single tournament
 router.get("/tournaments/:id", async ( req, res ) => {
     const tournament = await db.Tournament.findOne({ where: { id: req.params.id } });
+    const duels = await db.Duel.findAll({ where: { tournamentId: tournament.id } });
 
-    res.render( "./tournaments/show.ejs", { tournament: tournament } );
+    res.render( "./tournaments/show.ejs", { tournament: tournament, duels: duels } );
 });
 
+// sign up for tournament
 router.post("/tournaments/:id/signup", isLoggedIn, async ( req, res ) => {
     const t = await db.sequelize.transaction();
 
@@ -72,6 +74,18 @@ router.post("/tournaments/:id/signup", isLoggedIn, async ( req, res ) => {
         await t.rollback();
         res.redirect( "/tournaments/" + req.params.id );
     }
+});
+
+// pick a winner in duel in tournament
+router.post("/tournaments/:tournamentId/duels/:duelId/pickWinner/:winnerId", isLoggedIn, async ( req, res ) => {
+    const duel = await db.Duel.findOne({ where: { id: req.params.duelId, tournamentId: req.params.tournamentId } });
+
+    if ( duel.firstOpponent === req.user.id ) 
+        await db.Duel.update({ firstOpponentReply: req.params.winnerId }, { where: { id: duel.id } });
+    else 
+        await db.Duel.update({ secondOpponentReply: req.params.winnerId }, { where: { id: duel.id } });
+
+    res.redirect( "/tournaments/" + req.params.tournamentId );
 });
 
 

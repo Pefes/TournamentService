@@ -28,7 +28,8 @@ const seed = ( User, Tournament, Sponsor ) => {
         maxSize: 3,
         currentSize: 3,
         startDate: "2020-05-13 18:36:00",
-        deadlineDate: "2020-05-08 00:00:05"
+        deadlineDate: "2020-05-08 00:00:05",
+        status: "closed"
     }, {
         ownerId: 2,
         name: "Tournament2",
@@ -56,6 +57,49 @@ const seed = ( User, Tournament, Sponsor ) => {
     }, {
         tournamentId: 3,
         imageName: "1.png",
+    }]);
+
+    Participation.bulkCreate([{
+        tournamentId: 2,
+        userId: 1
+    }, {
+        tournamentId: 2,
+        userId: 1
+    }, {
+        tournamentId: 2,
+        userId: 2
+    }, {
+        tournamentId: 2,
+        userId: 2
+    }, {
+        tournamentId: 3,
+        userId: 1
+    }, {
+        tournamentId: 3,
+        userId: 1
+    }, {
+        tournamentId: 3,
+        userId: 1
+    }]);
+
+    Duel.bulkCreate([{
+        tournamentId: 1,
+        firstOpponent: 1,
+        secondOpponent: 1,
+    }, {
+        tournamentId: 1,
+        firstOpponent: 1,
+        secondOpponent: 2,
+    }, {
+        tournamentId: 1,
+        firstOpponent: 1,
+        secondOpponent: 2,
+        winner: 1
+    }, {
+        tournamentId: 1,
+        firstOpponent: 1,
+        secondOpponent: 2,
+        firstOpponentReply: 1,
     }]);
 };
 

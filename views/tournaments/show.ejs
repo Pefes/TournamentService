@@ -11,5 +11,21 @@
     </form>
 </div>
 
+<div>
+    <% duels.forEach(duel => { %>
+        <p><%= duel.firstOpponent %></p>
+        <p><%= duel.secondOpponent %></p>
+        <p><%= duel.firstOpponentReply %></p>
+        <p><%= duel.secondOpponentReply %></p>
+        <p><%= duel.winner %></p>
+        <form action="/tournaments/<%= tournament.id %>/duels/<%= duel.id %>/pickWinner/<%= duel.firstOpponent %>" method="POST">
+            <input type="submit" value="<%= duel.firstOpponent %>" />
+        </form>
+        <form action="/tournaments/<%= tournament.id %>/duels/<%= duel.id %>/pickWinner/<%= duel.secondOpponent %>" method="POST">
+            <input type="submit" value="<%= duel.secondOpponent %>" />
+        </form>
+    <% }); %>
+</div>
+
 
 <%- include ("../partials/footer") %>

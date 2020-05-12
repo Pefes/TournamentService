@@ -45,7 +45,7 @@ const User = userModel( sequelize, Sequelize ),
 // database connection
 sequelize.sync({ force: true })
 .then(() => {
-    seedDb( User, Tournament, Sponsor );
+    seedDb( User, Tournament, Sponsor, Participation, Duel );
     console.log( "Database & tables created here!" );
 });
 
