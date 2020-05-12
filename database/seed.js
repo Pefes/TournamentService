@@ -25,9 +25,9 @@ const seed = ( User, Tournament, Sponsor ) => {
         ownerId: 1,
         name: "Tournament1",
         branch: "Branch1",
-        maxSize: 2,
-        currentSize: 2,
-        startDate: "2020-05-11 18:36:00",
+        maxSize: 3,
+        currentSize: 3,
+        startDate: "2020-05-13 18:36:00",
         deadlineDate: "2020-05-08 00:00:05"
     }, {
         ownerId: 2,

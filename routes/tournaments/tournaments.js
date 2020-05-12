@@ -58,9 +58,9 @@ router.post("/tournaments/:id/signup", isLoggedIn, async ( req, res ) => {
     const t = await db.sequelize.transaction();
 
     try {
-        const { currentSize } = await db.Tournament.findOne({ where: { id: req.params.id } }, { transaction: t });
+        const { currentSize, status } = await db.Tournament.findOne({ where: { id: req.params.id } }, { transaction: t });
         
-        if ( currentSize > 0 ) {
+        if ( currentSize > 0 && status === "open" ) {
             await db.Participation.create({ tournamentId: req.params.id, userId: req.user.id }, { transaction: t });
             await db.Tournament.update({ currentSize: currentSize - 1 }, { where: { id: req.params.id } });
         }
