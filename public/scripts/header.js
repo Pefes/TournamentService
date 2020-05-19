@@ -10,6 +10,7 @@ document.getElementById("navButton").addEventListener("click", () => {
 
     mobileDevContainer.classList.toggle( "mobileDevContainerVisible" );
     document.getElementsByClassName( "mobileDevList" )[0].classList.toggle( "mobileDevListVisible" );
+    document.querySelector( "nav" ).classList.toggle( "navShowMobileList" );
 });
 
 
