@@ -19,7 +19,12 @@ const duel = ( sequelize, type ) => {
         winner: {
             type: type.INTEGER,
             defaultValue: null
-        }}, {
+        },
+        status: {
+            type: type.STRING,
+            defaultValue: "open"
+        }
+    }, {
         timestamps: false
     });
 };

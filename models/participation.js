@@ -6,7 +6,8 @@ const participation = ( sequelize, type ) => {
             autoIncrement: true
         },
         tournamentId: type.INTEGER,
-        userId: type.INTEGER
+        userId: type.INTEGER,
+        ladderRank: type.INTEGER
     }, {
         timestamps: false
     });

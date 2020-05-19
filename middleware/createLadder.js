@@ -1,20 +1,11 @@
 const db = require( "../database/databaseConnection" );
 
 
-const shuffle = ( array ) => {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-
 const createLadder = async ( req, res, next ) => {
     const tournaments = await db.Tournament.findAll({ where: { status: "closed" }, raw: true });
 
     tournaments.forEach(async tournament => {
-        let participations = await db.Participation.findAll({ where: { tournamentId: tournament.id }, raw: true });
-        shuffle( participations );
+        let participations = await db.Participation.findAll({ where: { tournamentId: tournament.id }, raw: true, order: [[ "ladderRank", "ASC" ]] });
 
         for ( let i = 0; i < participations.length; i += 2 ) {
             if ( i + 1 < participations.length ) {
@@ -31,6 +22,8 @@ const createLadder = async ( req, res, next ) => {
                 tournamentId: tournament.id,
                 firstOpponent: participations[participations.length - 1].userId,
                 secondOpponent: null,
+                firstOpponentReply: participations[participations.length - 1].userId,
+                secondOpponentReply: participations[participations.length - 1].userId,
                 winner: participations[participations.length - 1].userId,
             });
         }

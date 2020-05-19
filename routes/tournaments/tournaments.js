@@ -5,18 +5,22 @@ const express = require( "express" ),
     upload = multer({ dest: "./uploads/images" }),
     { isLoggedIn, isNotLoggedIn } = require( "../../utilities/passportUtilities" );
 
+
 // show all tournaments
 router.get("/tournaments", async ( req, res ) => {
     const tournaments = await db.Tournament.findAll();
     const sponsors = await db.Sponsor.findAll();
+
     res.render( "./tournaments/index.ejs", { tournaments: tournaments, sponsors: sponsors } );
 });
+
 
 // create new tournament
 router.post("/tournaments", isLoggedIn, upload.any( "images" ), ( req, res ) => {
     db.Tournament.create({
         ...req.body,
-        ownerId: req.user.id
+        ownerId: req.user.id,
+        currentSize: req.body.maxSize
     })
     .then(tournament => {
         console.log( tournament.dataValues );
@@ -42,10 +46,12 @@ router.post("/tournaments", isLoggedIn, upload.any( "images" ), ( req, res ) => 
     });
 });
 
+
 // get form for new tournament
 router.get("/tournaments/new", isLoggedIn, ( req, res ) => {
     res.render( "./tournaments/new.ejs" );
 });
+
 
 // get single tournament
 router.get("/tournaments/:id", async ( req, res ) => {
@@ -54,6 +60,7 @@ router.get("/tournaments/:id", async ( req, res ) => {
 
     res.render( "./tournaments/show.ejs", { tournament: tournament, duels: duels } );
 });
+
 
 // sign up for tournament
 router.post("/tournaments/:id/signup", isLoggedIn, async ( req, res ) => {
@@ -75,6 +82,7 @@ router.post("/tournaments/:id/signup", isLoggedIn, async ( req, res ) => {
         res.redirect( "/tournaments/" + req.params.id );
     }
 });
+
 
 // pick a winner in duel in tournament
 router.post("/tournaments/:tournamentId/duels/:duelId/pickWinner/:winnerId", isLoggedIn, async ( req, res ) => {

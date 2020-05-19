@@ -94,7 +94,6 @@ const seed = ( User, Tournament, Sponsor ) => {
         tournamentId: 1,
         firstOpponent: 1,
         secondOpponent: 2,
-        winner: 1
     }, {
         tournamentId: 1,
         firstOpponent: 1,

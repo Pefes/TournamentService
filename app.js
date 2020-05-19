@@ -8,6 +8,8 @@ const express = require( "express" ),
     session = require( "express-session" ),
     checkTournamentStatus = require( "./middleware/checkTournamentStatus" ),
     createLadder = require( "./middleware/createLadder" ),
+    checkDuelStatus = require( "./middleware/checkDuelStatus" ),
+    localsInit = require( "./middleware/localsInit" ),
     indexRoutes = require( "./routes" ),
     tournamentRoutes = require( "./routes/tournaments/tournaments" );
 
@@ -15,6 +17,7 @@ const express = require( "express" ),
 // settings
 initializePassport( passport );
 app.set( "view engine", "ejs" );
+app.use( express.static( __dirname + "/public" ) );
 app.use( bodyParser.urlencoded({ extended: true }) );
 app.use( methodOverride( "_method" ) );
 app.use( flash() );
@@ -28,8 +31,10 @@ app.use( passport.session() );
 
 
 // custom middleware
+app.use( localsInit );
 app.use( checkTournamentStatus );
 app.use( createLadder );
+app.use( checkDuelStatus );
 
 
 //add routes
