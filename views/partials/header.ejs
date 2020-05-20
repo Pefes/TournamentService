@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tournament Service</title>
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/stylesheets/header.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/inputForm.css">
@@ -14,7 +15,19 @@
 <body>
     <div class="content" >
         <header>
-            <div class="loginPopUp"></div>
+            <% if ( currentUser ) { %>
+                <div class="loginPopUp">
+                    <i class="fas fa-user"></i>
+                    <div class="loginPopUpInfo">
+                        <p class="userWelcome">Hello <span class="usernameLabel"><%= currentUser.dataValues.name %></span>!</p>
+                        <a href=""><i class="fas fa-arrow-right"></i>Signed up tournaments...</a>
+                        <a href=""><i class="fas fa-arrow-right"></i>Owned tournaments...</a>
+                        <form action="/logout?_method=DELETE" method="POST" >
+                            <input type="submit" value="LOG OUT" />
+                        </form>
+                    </div>
+                </div>
+            <% } %>
             <nav>
                 <ul class="navList">
                     <li><a href="/">HOME</a></li>

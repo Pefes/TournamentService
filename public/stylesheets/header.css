@@ -172,10 +172,102 @@ nav {
 
 .loginPopUp {
     position: absolute;
-    width: 150px;
-    border: 1px solid red;
+    width: 75px;
+    height: 75px;
+    border-bottom-right-radius: 100%;
     top: 0;
-    right: 0;
+    left: 0;
+    background-color: rgb(54, 52, 52);
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    transition: height 0.15s linear, width 0.15s linear, border-radius 0.15s linear;
+
+    -webkit-box-shadow: 10px 10px 25px -8px rgba(0,0,0,0.5);
+    -moz-box-shadow: 10px 10px 25px -8px rgba(0,0,0,0.5);
+    box-shadow: 10px 10px 25px -8px rgba(0,0,0,0.5);
+}
+
+.loginPopUp:hover {
+    width: 155px;
+    height: 155px;
+    border-bottom-right-radius: 70%;
+}
+
+.loginPopUp i {
+    color: white;
+    font-size: 1.75rem;
+    padding-left: 0.75rem;
+    padding-top: 0.75rem;
+}
+
+#loginPopUpIconHover {
+    display: none;
+}
+
+.loginPopUpInfo {
+    padding-left: 0.5rem;
+    opacity: 0;
+    transition: opacity 0s linear;
+    color: white;
+    font-family: "Roboto";
+    font-size: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    pointer-events: none;
+}
+
+.loginPopUpInfoHover {
+    opacity: 1;
+    transition: opacity 0.15s linear;
+    transition-delay: 0.15s;
+    pointer-events: all;
+}
+
+.loginPopUpInfo a {
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.loginPopUpInfo a i {
+    font-size: 0.5rem;
+    padding: 0;
+    padding-right: 0.5em;
+}
+
+#loginPopUpInfoIconHover {
+    color: black;
+}
+
+.loginPopUpInfo form {
+    margin-top: 1rem;
+}
+
+.loginPopUpInfo a {
+    text-decoration: none;
+    color: white;
+}
+
+.loginPopUpInfo input {
+    background-color: rgb(255, 177, 177);
+    border: 1px solid white;
+    border-radius: 0.5em;
+    color: black;
+    font-family: "Roboto";
+    cursor: pointer;
+    padding: 0.25em;
+    font-weight: bold;
+}
+
+.userWelcome {
+    font-size: 1rem;
+    border-bottom: 1px solid white;
+}
+
+.usernameLabel {
+    color: rgb(196, 218, 255);
 }
 
 @media (max-width: 1000px) {
@@ -191,5 +283,11 @@ nav {
 
     .mobileDevContainer {
         display: block;
+    }
+}
+
+@media (max-width: 750px) {
+    .loginPopUp {
+        display: none;
     }
 }
