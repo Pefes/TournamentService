@@ -39,6 +39,7 @@ nav {
     width: 70%;
     height: 50px;
     margin: 5px;
+    margin-top: 50px;
     background-color: rgb(54, 52, 52);
     color: rgb(253, 253, 253);
     border-radius: 25px;
@@ -122,6 +123,7 @@ nav {
 
 .mobileDevContainer {
     position: absolute;
+    display: none;
     top: 90%;
     right: 15%;
     background-color: rgb(54, 52, 52);
@@ -176,5 +178,9 @@ nav {
 
     .navList {
         display: none;
+    }
+
+    .mobileDevContainer {
+        display: block;
     }
 }

@@ -1,10 +1,21 @@
 <%- include ("../partials/header") %>
 
 
-<form action="/login" method="POST">
-    <input name="email" type="email" placeholder="email" />
-    <input name="password" type="password" />
-    <input type="submit" value="Log In" />
+<form action="/login" method="POST" class="loginForm">
+    <div class="formGroupTitle">
+        <h1>Login Form</h1>
+    </div>
+    <div class="formGroup">
+        <label>Email:</label>
+        <input name="email" type="email" placeholder="Type email here..." />
+    </div>
+    <div class="formGroup">
+        <label>Password:</label>
+        <input name="password" type="password" />
+    </div>
+    <div class="formGroupSubmit">
+        <input type="submit" value="Log In" />
+    </div>
 </form>
 
     
