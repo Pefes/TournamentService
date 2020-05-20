@@ -61,6 +61,7 @@ nav {
     display: flex;
     justify-content: space-between;
     list-style: none;
+    padding-right: 40px;
 }
 
 .navList li a {
@@ -137,7 +138,7 @@ nav {
 }
 
 .mobileDevContainerVisible {
-    height: 175px;
+    height: 140px;
 }
 
 .mobileDevList {
@@ -167,6 +168,14 @@ nav {
 
 .mobileDevListVisible {
     opacity: 1;
+}
+
+.loginPopUp {
+    position: absolute;
+    width: 150px;
+    border: 1px solid red;
+    top: 0;
+    right: 0;
 }
 
 @media (max-width: 1000px) {

@@ -1,14 +1,30 @@
 <%- include ("../partials/header") %>
 
 
-<h1>Hello user</h1>
-
-<form action="/register" method="POST" >
-    <input name="name" type="text" placeholder="Name" />
-    <input name="surname" type="text" placeholder="Surname" />
-    <input name="email" type="email" placeholder="Email" />
-    <input name="password" type="password" />
-    <input type="submit" value="Register"/>
+<form action="/register" method="POST" class="inputForm registerForm">
+    <div class="formGroupTitle">
+        <h1>Register Form</h1>
+    </div>
+    <div class="formGroup">
+        <label>Name:</label>
+        <input name="name" type="text" placeholder="Name" />
+    </div>
+    <div class="formGroup">
+        <label>Surname:</label>
+        <input name="surname" type="text" placeholder="Surname" />
+    </div>
+    <div class="formGroup">
+        <label>Email:</label>
+        <input name="email" type="email" placeholder="Email" />
+    </div>
+    <div class="formGroup">
+        <label>Password:</label>
+        <input name="password" type="password" />
+    </div>
+    <div class="formGroupSubmit">
+        <input type="submit" value="Register"/>
+    </div>
+    
 </form>
 
 
