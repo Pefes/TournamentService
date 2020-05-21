@@ -8,7 +8,11 @@ document.getElementById( "navButton" ).addEventListener("click", () => {
         mobileDevContainer.children[0].classList.add( "mobileDevList" );
     }
 
-    mobileDevContainer.classList.toggle( "mobileDevContainerVisible" );
+    if ( mobileDevContainer.getBoundingClientRect().height == 0 )
+        mobileDevContainer.style.height = mobileDevContainer.children[0].clientHeight + 30 + "px";
+    else
+        mobileDevContainer.style.height = "0";
+
     document.getElementsByClassName( "mobileDevList" )[0].classList.toggle( "mobileDevListVisible" );
     document.querySelector( "nav" ).classList.toggle( "navShowMobileList" );
 });
@@ -42,6 +46,7 @@ if( document.getElementsByClassName( "loginPopUp" )[0] ) {
         });
     });
 }
+
 
 
 

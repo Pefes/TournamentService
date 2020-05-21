@@ -1,14 +1,41 @@
 <%- include ("../partials/header") %>
 
 
-<form action="/tournaments" method="POST" enctype="multipart/form-data">
-    <input name="name" type="text" placeholder="Name"/>
-    <input name="branch" type="text" placeholder="Branch"/>
-    <input name="startDate" type="datetime-local" placeholder="Start date"/>
-    <input name="maxSize" type="number" placeholder="Size"/>
-    <input name="deadlineDate" type="datetime-local" placeholder="Deadline"/>
-    <input name="images" type="file" multiple />
-    <input type="submit" value="Create" />
+<form action="/tournaments" method="POST" enctype="multipart/form-data" class="inputForm tournamentForm">
+    <div class="formGroupTitle">
+        <h1>Create Tournament</h1>
+    </div>
+    <div class="formGroup">
+        <label>Name:</label>
+        <input name="name" type="text" placeholder="Name"/>
+    </div>
+    <div class="formGroup">
+        <label>Branch:</label>
+        <input name="branch" type="text" placeholder="Branch"/>
+    </div>
+    <div class="formGroup">
+        <label>Start Date:</label>
+        <input name="startDate" type="datetime-local" placeholder="Start date"/>
+    </div>
+    <div class="formGroup">
+        <label>Max size:</label>
+        <input name="maxSize" type="number" placeholder="Size"/>
+    </div>
+    <div class="formGroup">
+        <label>Deadline:</label>
+        <input name="deadlineDate" type="datetime-local" placeholder="Deadline"/>
+    </div>
+    <div class="formGroup">
+        <label>Sponsors:</label>
+        <button type="button" class="createTournamentSelectImages">
+            <i class="fas fa-upload"></i>
+            Selected images:&nbsp<span id="imagesCount">0</span>
+        </button>
+        <input id="images" name="images" type="file" multiple />
+    </div>
+    <div class="formGroupSubmit">
+        <input type="submit" value="Create" />
+    </div>
 </form>
 
 

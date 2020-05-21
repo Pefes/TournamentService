@@ -1,0 +1,34 @@
+.tournamentForm {
+    max-height: 700px;
+}
+
+.tournamentForm input[type = "file"] {
+    display: none;
+}
+
+.createTournamentSelectImages {
+    font-family: "Roboto";
+    background-color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    padding: 10px 15px;
+    font-size: 1em;
+    width: 65%;
+}
+
+.createTournamentSelectImages:focus {
+    outline: none;
+}
+
+.createTournamentSelectImages i {
+    padding-right: 0.25em;
+}
+
+@media (max-width: 750px) {
+    .createTournamentSelectImages {
+        width: 100%;
+    }
+}
