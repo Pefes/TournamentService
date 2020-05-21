@@ -1,11 +1,92 @@
 <%- include ("../partials/header") %>
+<%
+    const getCurrentPageId = ( i, currentPage ) => {
+        if (i == currentPage) return "pageCounterAHover";
+    };
+%>
 
-<input type="text" value="search..." />
-<div>
+
+<div class="tournamentsList">
     <% tournaments.forEach(tournament => { %>
-        <p><%= tournament.name %></p>
-        <a href="/tournaments/<%= tournament.id %>">More...</a>
+        <article>
+            <section class="articleImg">
+                <img src="https://www.w3schools.com/w3css/img_lights.jpg"/>
+            </section>
+            <section class="articleBody">
+                <div class="articleInfo">
+                    <label>Name:</label>
+                    <p><%= tournament.name %></p>
+                </div>
+                <div class="articleInfo">
+                    <label>Branch:</label>
+                    <p><%= tournament.branch %></p>
+                </div>
+                <div class="articleInfo">
+                    <label>Status:</label>
+                    <p><%= tournament.status %></p>
+                </div>
+                <div class="articleInfo">
+                    <label>Current size:</label>
+                    <p><%= tournament.currentSize %>/<%= tournament.maxSize %></p>
+                </div>
+                <div class="articleInfo">
+                    <label>Start Date:</label>
+                    <p><%= tournament.startDate %></p>
+                </div>
+                
+            </section>
+            <section class="articleMore">
+                <a href="/tournaments/<%= tournament.id %>">
+                    <p>M</p>
+                    <p>O</p>
+                    <p>R</p>
+                    <p>E</p>
+                    <p><i class="fas fa-arrow-right"></i></p>
+                </a>
+            </section>
+        </article>
     <% }) %>
+
+    <div class="pageCounter">
+        <a href="/tournaments/page/<%= currentPage - 1 %>"
+            class="<% if( currentPage === 1 ) { %><%= 'disabledLink' %><% } %>">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="mainCounter">
+            <% if ( maxPage <= 5 ) { %>
+                <% for ( let i = 1; i <= maxPage; i++ ) { %>
+                    <a href="/tournaments/page/<%= i %>" id="<%= getCurrentPageId(i, currentPage) %>"><%= i %></a>   
+                <% } %>
+            <% } else { %>
+                <% if ( currentPage <= 2 ) { %>
+                    <% for ( let i = 1; i <= 3; i++ ) { %>
+                        <a href="/tournaments/page/<%= i %>" id="<%= getCurrentPageId(i, currentPage) %>"><%= i %></a>   
+                    <% } %>
+                        <p class="edges"><i class="fas fa-ellipsis-h"></i></p>
+                        <a href="/tournaments/page/<%= maxPage %>" class="edges"><%= maxPage %></a>  
+                <% } else if ( currentPage > maxPage - 2 ) { %>
+                        <a href="/tournaments/page/1" class="edges">1</a>
+                        <p class="edges"><i class="fas fa-ellipsis-h"></i></p>
+                        <% for ( let i = maxPage - 2; i <= maxPage; i++ ) { %>
+                            <a href="/tournaments/page/<%= i %>" id="<%= getCurrentPageId(i, currentPage) %>"><%= i %></a>   
+                        <% } %>
+                <% } else { %>
+                        <a href="/tournaments/page/1" class="edges">1</a>
+                        <p class="edges"><i class="fas fa-ellipsis-h"></i></p>
+                        <% for ( let i = currentPage - 1; i <= currentPage + 1; i++ ) { %>
+                            <a href="/tournaments/page/<%= i %>" id="<%= getCurrentPageId(i, currentPage) %>"><%= i %></a>   
+                        <% } %>
+                        <p class="edges"><i class="fas fa-ellipsis-h"></i></p>
+                        <a href="/tournaments/page/<%= maxPage %>" class="edges"><%= maxPage %></a> 
+                <% } %>
+            <% } %>
+        </div>
+        
+        <a href="/tournaments/page/<%= currentPage + 1 %>"
+            class="<% if( currentPage === maxPage ) { %><%= 'disabledLink' %><% } %>">
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
 </div>
 
 

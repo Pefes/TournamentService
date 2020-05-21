@@ -7,11 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/header.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/inputForm.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/register.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/createTournament.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/partials/header.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/index/inputForm.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/partials/footer.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/index/register.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/tournaments/new.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/tournaments/index.css">
 </head>
 <body>
     <div class="content" >
@@ -33,7 +34,7 @@
                 <ul class="navList">
                     <li><a href="/">HOME</a></li>
                     <li><a href="/tournaments/new">CREATE TOURNAMENT</a></li>
-                    <li><a href="/tournaments">SHOW TOURNAMENTS</a></li>
+                    <li><a href="/tournaments/page/1">SHOW TOURNAMENTS</a></li>
                     <% if ( !currentUser ) { %>
                         <li><a href="/login">LOGIN</a></li>
                         <li><a href="/register">REGISTER</a></li>

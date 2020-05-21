@@ -7,11 +7,18 @@ const express = require( "express" ),
 
 
 // show all tournaments
-router.get("/tournaments", async ( req, res ) => {
+router.get("/tournaments/page/:currentPage", async ( req, res ) => {
     const tournaments = await db.Tournament.findAll();
     const sponsors = await db.Sponsor.findAll();
+    //const maxPage = Math.ceil( tournaments.length / 10 );
+    //const currentPage = parseInt( req.params.currentPage, 10);
 
-    res.render( "./tournaments/index.ejs", { tournaments: tournaments, sponsors: sponsors } );
+    res.render( "./tournaments/index.ejs", { 
+        tournaments: tournaments, 
+        sponsors: sponsors,
+        maxPage: 10,
+        currentPage: 1
+     } );
 });
 
 

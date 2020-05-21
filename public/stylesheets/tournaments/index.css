@@ -1,0 +1,179 @@
+.tournamentsList {
+    margin-top: 10vh;
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 800px;
+}
+
+.tournamentsList article {
+    margin-bottom: 50px;
+    display: flex;
+    border-radius: 5vw;
+    border: 1px solid black;
+    background-color: rgb(54, 52, 52);
+    -webkit-box-shadow: 20px 20px 31px -1px rgba(0,0,0,0.43);
+    -moz-box-shadow: 20px 20px 31px -1px rgba(0,0,0,0.43);
+    box-shadow: 20px 20px 31px -1px rgba(0,0,0,0.43);
+}
+
+.tournamentsList .articleImg {
+    flex-basis: 25%;
+    border-right: 1px solid black;
+    -webkit-box-shadow: 29px 3px 38px -13px rgba(0,0,0,0.43);
+    -moz-box-shadow: 29px 3px 38px -13px rgba(0,0,0,0.43);
+    box-shadow: 29px 3px 38px -13px rgba(0,0,0,0.43);
+    border-top-left-radius: 5vw;
+    border-bottom-left-radius: 5vw;
+}
+
+.tournamentsList .articleImg img {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 5vw;
+    border-bottom-left-radius: 5vw;
+}
+
+.tournamentsList .articleBody {
+    flex-basis: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tournamentsList .articleBody .articleInfo {
+    display: flex;
+    align-items: center;
+    font-family: "Balsamiq Sans";
+    width: 80%;
+    margin: 7.5px 0;
+    border: 1px solid black;
+    border-radius: 2.5vw;
+    padding: 0 2%;
+    background-color: rgb(220, 220, 220);
+    -webkit-box-shadow: 20px 20px 36px -2px rgba(0,0,0,0.43);
+    -moz-box-shadow: 20px 20px 36px -2px rgba(0,0,0,0.43);
+    box-shadow: 20px 20px 36px -2px rgba(0,0,0,0.43);
+}
+
+.tournamentsList .articleBody label {
+    font-weight: bold;
+    width: 30%;
+    text-transform: uppercase;
+}
+
+.tournamentsList .articleBody p {
+    display: flex;
+    justify-content: flex-end;
+    width: 70%;
+}
+
+.tournamentsList .articleMore {
+    width: 10%;
+}
+
+.tournamentsList .articleMore a {
+    height: 100%;
+    width: 100%;
+    border-top-right-radius: 5vw;
+    border-bottom-right-radius: 5vw;
+    background-color: rgb(200, 255, 189);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: rgb(54, 52, 52);
+    font-family: "Balsamiq Sans";
+    font-weight: bold;
+    border: 3px solid black;
+    border-left: 1px solid black;
+}
+
+.pageCounter a[class = "disabledLink"] {
+    pointer-events: none;
+    color: rgb(212, 212, 212);
+    background-color: rgb(156, 156, 156);
+}
+
+.pageCounter {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pageCounter a {
+    font-family: "Balsamiq Sans";
+    text-decoration: none;
+    color: white;
+    background-color: rgb(54, 52, 52);
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+
+    -webkit-box-shadow: 10px 10px 30px -2px rgba(0,0,0,0.45);
+    -moz-box-shadow: 10px 10px 30px -2px rgba(0,0,0,0.45);
+    box-shadow: 10px 10px 30px -2px rgba(0,0,0,0.45);
+}
+
+.pageCounter a:hover {
+    color: rgb(54, 52, 52);
+    background-color: white;
+}
+
+#pageCounterAHover {
+    color: rgb(54, 52, 52);
+    background-color: white;
+}
+
+.pageCounter .mainCounter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 40%;
+}
+
+@media (max-width: 450px) {
+    a[class="edges"], p[class="edges"] {
+        display: none;
+    }
+
+    .pageCounter a {
+        margin: 0;
+    }
+}
+
+@media (max-width: 750px) {
+    .tournamentsList article {
+        flex-direction: column;
+    }
+
+    .tournamentsList article .articleImg {
+        border-radius: 5vw 5vw 0 0;
+        border-right: none;
+    }
+
+    .tournamentsList article .articleImg img {
+        border-radius: 5vw 5vw 0 0;
+        border-bottom: 1px solid black;
+    }
+
+    .tournamentsList .articleMore {
+        width: 100%;
+    }
+
+    .tournamentsList .articleMore a {
+        flex-direction: row;
+        border-radius: 0 0 5vw 5vw;
+    }
+
+    .tournamentsList .articleBody .articleInfo {
+        margin: 2.5px 0;
+    }
+}
