@@ -1,17 +1,44 @@
 <%- include ("../partials/header") %>
 
 
-<div>
-    <p><%= tournament.name %></p>
-    <p><%= tournament.branch %></p>
-    <p><%= tournament.size %></p>
-    <p><%= tournament.startDate %></p>
-    <form action="/tournaments/<%= tournament.id %>/signup" method="POST">
-        <input type="submit" value="Sing Up for the tournament!" />
-    </form>
-</div>
+<article class="tournamentShowMain">
+    <section class="tournamentInfo">
+        <div class="tournamentShowImage">
+            <img src="https://www.w3schools.com/w3css/img_lights.jpg"/>
+        </div>
+        <div class="tournamentInfoSection">
+            <label><div></div>Name:</label>
+            <p><%= tournament.name %></p>
+        </div>
+        <div class="tournamentInfoSection">
+            <label><div></div>Branch:</label>
+            <p><%= tournament.branch %></p>
+        </div>
+        <div class="tournamentInfoSection">
+            <label><div></div>Size:</label>
+            <p><%= tournament.currentSize %>/<%= tournament.maxSize %></p>
+        </div>
+        <div class="tournamentInfoSection">
+            <label><div></div>Start Date:</label>
+            <p><%= tournament.startDate %></p>
+        </div>
+        <div class="tournamentInfoSection">
+            <label><div></div>Deadline:</label>
+            <p><%= tournament.deadlineDate %></p>
+        </div>
+        <div class="tournamentInfoSection">
+            <label><div></div>Status:</label>
+            <p><%= tournament.status %></p>
+        </div>
+    </section>
 
-<div>
+    <form action="/tournaments/<%= tournament.id %>/signup" method="POST">
+        <input type="submit" value=">SIGN UP!<" />
+    </form>
+</article>
+
+
+<div class="temp">
     <% duels.forEach(duel => { %>
         <p><%= duel.firstOpponent %></p>
         <p><%= duel.secondOpponent %></p>
