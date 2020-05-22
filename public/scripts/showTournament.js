@@ -1,5 +1,4 @@
 const showTournamentInfoSection = document.querySelectorAll( ".tournamentShowMain .tournamentInfo .tournamentInfoSection" );
-const tournamentShowSponsors = document.getElementsByClassName( "tournamentShowSponsors" )[0];
 
 
 if ( showTournamentInfoSection[0] ) {
@@ -14,8 +13,4 @@ if ( showTournamentInfoSection[0] ) {
             section.children[0].children[0].classList.remove( "labelDotHover" );
         });
     });
-}
-
-if ( tournamentShowSponsors ) {
-    tournamentShowSponsors.classList.add( "tournamentShowSponsorsVisible" );
 }
