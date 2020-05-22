@@ -46,6 +46,54 @@
         </form>
     </section>
     <section class="tournamentShowLadder">
+        <% for( let i = 1; i <= tournament.maxStage; i++ ) { %>
+            <div class="tournamentRound">
+                <% duels.forEach(duel => { %>
+                    <% if( duel.stage === i ) { %>
+                        <div class="tournamentDuel">
+                            <div class="firstOpponent">
+                                <p>duel.firstOpponent</p>
+                                <div class="winner"><i class="fas fa-check"></i></div>
+                            </div>
+                            <div class="secondOpponent">
+                                <p>duel.secondOpponent</p>
+                                <div class="loser"><i class="fas fa-times"></i></div>     
+                            </div>
+                        </div>
+                    <% } %>
+                <% }); %>
+            </div>
+            <% if( i < tournament.maxStage ) { %>
+                <div class="tournamentRound tournamentColumn">
+                    <% duels.forEach(duel => { %>
+                        <% if( duel.stage === i ) { %>
+                            <div class="tournamentDuel">
+                                <div class="firstOpponent"></div>
+                                <div class="secondOpponent"></div>
+                            </div>
+                        <% } %>
+                    <% }); %>
+                </div>
+                <div class="tournamentRound tournamentColumn">
+                    <% duels.forEach(duel => { %>
+                        <% if( duel.stage === i ) { %>
+                            <div class="tournamentDuel">
+                                <div class="firstOpponent"></div>
+                                <div class="secondOpponent"></div>
+                            </div>
+                        <% } %>
+                    <% }); %>
+                </div>
+            <% } %>
+        <% } %>
+
+        <div class="showWinner">
+            <div></div>
+            <div class="winnerTitle">
+                <p>WINNER</p>
+                <i class="fas fa-crown"></i>
+            </div>
+        </div>
 
     </section>
 </article>

@@ -189,3 +189,151 @@
     justify-content: center;
     border-bottom: 1px solid rgb(201, 201, 201);
 }
+
+.tournamentShowLadder {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start; 
+    align-items: stretch;
+    overflow-x: auto;
+    padding: 0 30px;
+    padding-bottom: 50px;
+    font-family: "Roboto";
+}
+
+.tournamentShowLadder .tournamentRound {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.tournamentShowLadder .tournamentRound .tournamentDuel {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+    margin: 20px 0;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    -webkit-box-shadow: 0px 4px 47px 13px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0px 4px 47px 13px rgba(0,0,0,0.05);
+    box-shadow: 0px 4px 47px 13px rgba(0,0,0,0.05);
+}
+
+.tournamentShowLadder .tournamentRound .firstOpponent, .tournamentShowLadder .tournamentRound .secondOpponent  {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border-bottom: 2px solid rgb(141, 141, 141);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tournamentShowLadder .tournamentRound .secondOpponent {
+    border-bottom: none;
+}
+
+.tournamentShowLadder .tournamentRound .winner {
+    width: 32px;
+    height: 32px;
+    background-color: rgb(170, 255, 170);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 5px 0 0;
+    border-left: 1px solid #aaa;
+}
+
+.tournamentShowLadder .tournamentRound .loser {
+    width: 32px;
+    height: 32px;
+    background-color: rgb(255, 160, 160);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 5px 0;
+    border-left: 1px solid #aaa;
+}
+
+.tournamentShowLadder .tournamentRound i {
+    font-size: 20px;
+    color: white;
+}
+
+.tournamentShowLadder .tournamentRound .firstOpponent p, .tournamentShowLadder .tournamentRound .secondOpponent p {
+    margin: 0;
+    padding: 5px;
+}
+
+.tournamentShowLadder .tournamentColumn {
+    justify-content: stretch;
+    border: none;
+}
+
+.tournamentShowLadder .tournamentColumn .tournamentDuel {
+    margin: 0;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.tournamentShowLadder .tournamentColumn .firstOpponent, .tournamentShowLadder .tournamentColumn .secondOpponent {
+    border: none;    
+    padding: 15px;
+}
+
+.tournamentShowLadder .tournamentRound:nth-child(3n - 1) .tournamentDuel .firstOpponent {
+    border-bottom: 2px solid rgb(82, 82, 82);
+}
+
+.tournamentShowLadder .tournamentRound:nth-child(3n - 1) .tournamentDuel:nth-child(2n) .firstOpponent {
+    border-right: 2px solid rgb(82, 82, 82);
+}
+
+.tournamentShowLadder .tournamentRound:nth-child(3n - 1) .tournamentDuel:nth-child(2n + 1) .secondOpponent {
+    border-right: 2px solid rgb(82, 82, 82);
+}
+
+.tournamentShowLadder .tournamentRound:nth-child(3n) .tournamentDuel:nth-child(2n - 1) .secondOpponent {
+    border-bottom: 2px solid rgb(82, 82, 82);
+}
+
+.showWinner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.showWinner div {
+    width: 100px;
+    border-bottom: 2px solid rgb(82, 82, 82);
+}
+
+.showWinner .winnerTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    -webkit-box-shadow: 0px 4px 47px 13px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0px 4px 47px 13px rgba(0,0,0,0.05);
+    box-shadow: 0px 4px 47px 13px rgba(0,0,0,0.05);
+    width: unset;
+}
+
+.showWinner p {
+    padding: 5px 10px;
+    border-right: 1px solid #aaa;
+}
+
+.showWinner i {
+    padding: 5px;
+    color: gold;
+    font-size: 31px;
+}

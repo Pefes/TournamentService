@@ -23,7 +23,8 @@ const duel = ( sequelize, type ) => {
         status: {
             type: type.STRING,
             defaultValue: "open"
-        }
+        },
+        stage: type.INTEGER
     }, {
         timestamps: false
     });

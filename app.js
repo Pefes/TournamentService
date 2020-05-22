@@ -7,7 +7,7 @@ const express = require( "express" ),
     flash = require( "express-flash" ),
     session = require( "express-session" ),
     checkTournamentStatus = require( "./middleware/checkTournamentStatus" ),
-    createLadder = require( "./middleware/createLadder" ),
+    createDuels = require( "./middleware/createDuels" ),
     checkDuelStatus = require( "./middleware/checkDuelStatus" ),
     localsInit = require( "./middleware/localsInit" ),
     indexRoutes = require( "./routes" ),
@@ -33,7 +33,7 @@ app.use( passport.session() );
 // custom middleware
 app.use( localsInit );
 app.use( checkTournamentStatus );
-app.use( createLadder );
+app.use( createDuels );
 app.use( checkDuelStatus );
 
 
