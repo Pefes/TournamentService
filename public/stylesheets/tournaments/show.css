@@ -29,7 +29,9 @@
 }
 
 .tournamentShowMain section .tournamentInfoSection label {
-    border-radius: 5vw;
+    border-radius: 5vw 0 0 5vw;
+    border: 0.5px solid white;
+    border-right: none;
     padding: 5px;
     display: flex;
     justify-content: center;
@@ -60,49 +62,130 @@
 
 .tournamentShowMain section .tournamentInfoSection p {
     width: 0;
-    padding: 0;
     margin: 0;
-    font-size: 0;
+    padding: 5px;
+    color: rgba(255, 255, 255, 0);
+    border: 0.5px solid white;
+    border-left: none;
     white-space: nowrap;
     display: flex;
     justify-content: flex-end;
     background-color: rgb(54, 52, 52);
-    color: white;
     border-radius: 0 5vw 5vw 0;
-    transition: width 0.25s linear, font-size 0.25s linear, padding 0.25s linear;
+    transition: width 0.25s linear, color 0.25s linear;
     overflow: auto;
     z-index: 100;
 }
 
 .tournamentShowMain section .tournamentInfoSection p[class = "tournamentInfoSectionHover"] {
     width: 100%;
-    padding: 5px;
-    font-size: 1em;
+    color: rgba(255, 255, 255, 1);
 }
 
-.tournamentShowMain form {
+.tournamentShowMain .tournamentShowSignUp form {
     z-index: 100;
 }
 
-.tournamentShowMain form input {
-    border: none;
+.tournamentShowMain .tournamentShowSignUp form input {
+    border: 1px solid white;
     background-color: rgb(139, 175, 252);
     border-radius: 5vw;
+    padding: 5px;
+    margin: 30px;
     color: white;
     font-family: "Balsamiq Sans";
     font-weight: bold;
     font-size: 3rem;
+    cursor: pointer;
+    transition: background-color 0.15s linear;
+    -webkit-box-shadow: 10px 10px 47px -9px rgba(0,0,0,0.6);
+    -moz-box-shadow: 10px 10px 47px -9px rgba(0,0,0,0.6);
+    box-shadow: 10px 10px 47px -9px rgba(0,0,0,0.6);
+}
+
+.tournamentShowMain .tournamentShowSignUp form input:hover {
+    background-color: rgb(190, 209, 250);
+    color: white;
 }
 
 .tournamentShowImage {
     position: absolute;
     top: 0;
     right: 0;
-    width: 50vw;
+    width: 70vw;
     height: 100%;
+    -webkit-box-shadow: -6px 21px 55px 11px rgba(0,0,0,0.35);
+    -moz-box-shadow: -6px 21px 55px 11px rgba(0,0,0,0.35);
+    box-shadow: -6px 21px 55px 11px rgba(0,0,0,0.35);
+    border-bottom: 2px solid black;
 }
 
 .tournamentShowImage img {
     width: 100%;
     height: 100%;
+    opacity: 0.5;
+}
+
+.tournamentShowImageShadow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-box-shadow: inset 6px -4px 55px 19px rgba(0,0,0,0.55);
+    -moz-box-shadow: inset 6px -4px 55px 19px rgba(0,0,0,0.55);
+    box-shadow: inset 6px -4px 55px 19px rgba(0,0,0,0.55);
+}
+
+.tournamentShowSponsors {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 4s ease-out;
+    border-bottom: 1px solid rgb(201, 201, 201);
+    padding-bottom: 30px;
+}
+
+.tournamentShowSponsorsVisible {
+    opacity: 1;
+}
+
+.tournamentShowSponsors h1 {
+    font-size: 1.5rem;
+}
+
+.tournamentShowSponsors .tournamentShowSponsorsImages {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.tournamentShowSponsors .tournamentShowSponsorsImages img {
+    height: 150px;
+    width: 150px;
+    margin: 5px 15px;
+    border-radius: 100%;
+    border: 1px solid black;
+    -webkit-box-shadow: 10px 10px 47px -9px rgba(0,0,0,0.6);
+    -moz-box-shadow: 10px 10px 47px -9px rgba(0,0,0,0.6);
+    box-shadow: 10px 10px 47px -9px rgba(0,0,0,0.6);
+    transition: box-shadow 0.25s linear, border-color 0.25s linear;
+}
+
+.tournamentShowSponsors .tournamentShowSponsorsImages img:hover {
+    -webkit-box-shadow: 0px 4px 47px 13px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 4px 47px 13px rgba(0,0,0,0.5);
+    box-shadow: 0px 4px 47px 13px rgba(0,0,0,0.5);
+    border-color: rgb(97, 97, 97);
+}
+
+.tournamentShowSignUp {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid rgb(201, 201, 201);
 }

@@ -64,8 +64,19 @@ router.get("/tournaments/new", isLoggedIn, ( req, res ) => {
 router.get("/tournaments/:id", async ( req, res ) => {
     const tournament = await db.Tournament.findOne({ where: { id: req.params.id } });
     const duels = await db.Duel.findAll({ where: { tournamentId: tournament.id } });
+    const sponsors = [
+        "/images/sponsors/1.png",
+        "/images/sponsors/1.png",
+        "/images/sponsors/1.png",
+        "/images/sponsors/1.png",
+        "/images/sponsors/11.png",
+        "/images/sponsors/1.png",
+        "/images/sponsors/1.png",
+        "/images/sponsors/1.png",
+        "/images/sponsors/Untitled.png"
+    ];
 
-    res.render( "./tournaments/show.ejs", { tournament: tournament, duels: duels } );
+    res.render( "./tournaments/show.ejs", { tournament: tournament, duels: duels, sponsors: sponsors } );
 });
 
 

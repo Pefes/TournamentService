@@ -5,6 +5,7 @@
     <section class="tournamentInfo">
         <div class="tournamentShowImage">
             <img src="https://www.w3schools.com/w3css/img_lights.jpg"/>
+            <div class="tournamentShowImageShadow"></div>
         </div>
         <div class="tournamentInfoSection">
             <label><div></div>Name:</label>
@@ -31,10 +32,19 @@
             <p><%= tournament.status %></p>
         </div>
     </section>
-
-    <form action="/tournaments/<%= tournament.id %>/signup" method="POST">
-        <input type="submit" value=">SIGN UP!<" />
-    </form>
+    <section class="tournamentShowSponsors">
+        <h1>SPONSORS</h1>
+        <div class="tournamentShowSponsorsImages">
+            <% sponsors.forEach(sponsor => { %>
+                <img src="<%= sponsor %>" />
+            <% }) %>
+        </div>
+    </section>
+    <section class="tournamentShowSignUp">
+        <form action="/tournaments/<%= tournament.id %>/signup" method="POST">
+            <input type="submit" value=">SIGN UP!<" />
+        </form>
+    </section>
 </article>
 
 
