@@ -1,7 +1,7 @@
 <%- include ("../partials/header") %>
 <% 
-    const isMyDuel = ( user, firstOpponent, secondOpponent ) => {
-        if( user && (user.id === firstOpponent || user.id === secondOpponent) )
+    const isMyDuel = ( user, firstOpponent, secondOpponent, winner ) => {
+        if( user && !winner && (user.id === firstOpponent || user.id === secondOpponent) )
             return true;
         else
             return false;
@@ -63,33 +63,33 @@
                     <% duels.forEach(duel => { %>
                         <% if( duel.stage === i ) { %>
                             <div class="tournamentDuel">
-                                <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent ) ) { %>
+                                <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent, duel.winner ) ) { %>
                                     <div class="pickWinner">Pick a winner!
                                         <form action="/tournaments/<%= tournament.id %>/duels/<%= duel.id %>/pickWinner/<%= duel.firstOpponent %>" method="POST"></form>
                                         <form action="/tournaments/<%= tournament.id %>/duels/<%= duel.id %>/pickWinner/<%= duel.secondOpponent %>" method="POST"></form>
                                     </div>
                                 <% } %>
                                 <div class="firstOpponent 
-                                <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent ) ) { %>
+                                <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent, duel.winner ) ) { %>
                                     <%= 'myDuel' %>
                                 <% } %>">
                                     <p><%= duel.firstOpponent %></p>
-                                    <% if( duel.winner === duel.firstOpponent ) { %>
+                                    <% if( duel.winner === duel.firstOpponent && duel.winner != null ) { %>
                                         <div class="winner"><i class="fas fa-check"></i></div>
-                                    <% } else if( duel.winner === duel.secondOpponent ) { %>
+                                    <% } else if( duel.winner === duel.secondOpponent && duel.winner != null ) { %>
                                         <div class="loser"><i class="fas fa-times"></i></div>
                                     <% } else { %>
                                         <div class="noWinner"><i class="fas fa-question"></i></div>
                                     <% } %>
                                 </div>
                                 <div class="secondOpponent 
-                                <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent ) ) { %>
+                                <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent, duel.winner ) ) { %>
                                     <%= 'myDuel' %>
                                 <% } %>">
                                     <p><%= duel.secondOpponent %></p>
-                                    <% if( duel.winner === duel.secondOpponent ) { %>
+                                    <% if( duel.winner === duel.secondOpponent && duel.winner != null ) { %>
                                         <div class="winner"><i class="fas fa-check"></i></div>
-                                    <% } else if( duel.winner === duel.firstOpponent ) { %>
+                                    <% } else if( duel.winner === duel.firstOpponent && duel.winner != null ) { %>
                                         <div class="loser"><i class="fas fa-times"></i></div>
                                     <% } else { %>
                                         <div class="noWinner"><i class="fas fa-question"></i></div>
@@ -129,7 +129,7 @@
                     <% if( tournament.winnerId ) { %>
                         <p>tournament.winnerId</p>
                     <% } else { %>
-                        <p>????</p>
+                        <p>? ? ?</p>
                     <% } %>
                     <i class="fas fa-crown"></i>
                 </div>

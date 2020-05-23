@@ -43,7 +43,7 @@ const createDuels = async ( req, res, next ) => {
             });
         }*/
 
-        await db.Tournament.update({ status: "createdDuels", maxStage: stage }, { where: { id: tournament.id } });
+        await db.Tournament.update({ status: "readyForDuels", maxStage: stage, currentStage: 1 }, { where: { id: tournament.id } });
     });
 
     return next();

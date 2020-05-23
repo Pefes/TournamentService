@@ -15,6 +15,11 @@ const checkDuelStatus = async ( req, res, next ) => {
                 winner: duel.secondOpponentReply,
                 status: "closed"
             }, { where: { id: duel.id } });
+
+            if ( duel.firstOpponent === duel.firstOpponentReply )
+                db.Participation.update({ status: "out" }, { where: { userId: duel.secondOpponent } });
+            else
+                db.Participation.update({ status: "out" }, { where: { userId: duel.firstOpponent } });
         }
         else {
             db.Duel.update({

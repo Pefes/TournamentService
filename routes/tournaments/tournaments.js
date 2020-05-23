@@ -88,7 +88,7 @@ router.post("/tournaments/:id/signup", isLoggedIn, async ( req, res ) => {
         const { currentSize, status } = await db.Tournament.findOne({ where: { id: req.params.id } }, { transaction: t });
         
         if ( currentSize > 0 && status === "open" ) {
-            await db.Participation.create({ tournamentId: req.params.id, userId: req.user.id }, { transaction: t });
+            await db.Participation.create({ tournamentId: req.params.id, userId: req.user.id, ladderRank: Math.random() }, { transaction: t });
             await db.Tournament.update({ currentSize: currentSize - 1 }, { where: { id: req.params.id } });
         }
 

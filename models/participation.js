@@ -7,7 +7,11 @@ const participation = ( sequelize, type ) => {
         },
         tournamentId: type.INTEGER,
         userId: type.INTEGER,
-        ladderRank: type.INTEGER
+        ladderRank: type.INTEGER,
+        status: {
+            type: type.STRING,
+            defaultValue: "in"
+        }
     }, {
         timestamps: false
     });

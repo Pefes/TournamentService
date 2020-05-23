@@ -275,7 +275,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 0 5px 0 0;
     border-left: 1px solid #aaa;
 }
 
@@ -286,7 +285,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 0 0 5px 0;
     border-left: 1px solid #aaa;
 }
 
@@ -297,8 +295,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 0 5px 0 0;
     border-left: 1px solid #aaa;
+}
+
+.tournamentShowLadder .firstOpponent div {
+    border-radius: 0 5px 0 0;
+}
+
+.tournamentShowLadder .secondOpponent div {
+    border-radius: 0 0 5px 0;
 }
 
 .tournamentShowLadder .tournamentRound i {
