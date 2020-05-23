@@ -16,7 +16,11 @@ const tournament = ( sequelize, type ) => {
             type: type.STRING,
             defaultValue: "open"
         },
-        maxStage: type.INTEGER
+        maxStage: type.INTEGER,
+        winnerId: {
+            type: type.INTEGER,
+            defaultValue: null
+        }
     }, {
         timestamps: false
     });

@@ -190,13 +190,26 @@
     border-bottom: 1px solid rgb(201, 201, 201);
 }
 
+.tournamentShowResults {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tournamentShowResults h1 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
 .tournamentShowLadder {
     display: flex;
     width: 100%;
     justify-content: flex-start; 
     align-items: stretch;
     overflow-x: auto;
-    padding: 0 30px;
+    padding: 50px;
     padding-bottom: 50px;
     font-family: "Roboto";
 }
@@ -213,6 +226,8 @@
     flex-direction: column;
     justify-content: stretch;
     align-items: stretch;
+    position: relative;
+    width: 175px;
     margin: 20px 0;
     border: 1px solid #aaa;
     border-radius: 5px;
@@ -220,6 +235,23 @@
     -webkit-box-shadow: 0px 4px 47px 13px rgba(0,0,0,0.05);
     -moz-box-shadow: 0px 4px 47px 13px rgba(0,0,0,0.05);
     box-shadow: 0px 4px 47px 13px rgba(0,0,0,0.05);
+}
+
+.tournamentShowLadder .tournamentRound .tournamentDuel .pickWinner {
+    position: absolute;
+    width: 175px;
+    height: 25px;
+    top: -30px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(139, 175, 252);
+}
+
+.tournamentShowLadder .tournamentRound .tournamentDuel .pickWinner form {
+    display: none;
 }
 
 .tournamentShowLadder .tournamentRound .firstOpponent, .tournamentShowLadder .tournamentRound .secondOpponent  {
@@ -258,6 +290,17 @@
     border-left: 1px solid #aaa;
 }
 
+.tournamentShowLadder .tournamentRound .noWinner {
+    width: 32px;
+    height: 32px;
+    background-color: rgb(121, 121, 121);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 5px 0 0;
+    border-left: 1px solid #aaa;
+}
+
 .tournamentShowLadder .tournamentRound i {
     font-size: 20px;
     color: white;
@@ -266,6 +309,7 @@
 .tournamentShowLadder .tournamentRound .firstOpponent p, .tournamentShowLadder .tournamentRound .secondOpponent p {
     margin: 0;
     padding: 5px;
+    overflow-x: hidden;
 }
 
 .tournamentShowLadder .tournamentColumn {
@@ -276,6 +320,7 @@
 .tournamentShowLadder .tournamentColumn .tournamentDuel {
     margin: 0;
     height: 100%;
+    width: 50px;
     border: none;
     background-color: transparent;
     box-shadow: none;
@@ -337,3 +382,4 @@
     color: gold;
     font-size: 31px;
 }
+
