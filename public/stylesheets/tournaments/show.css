@@ -1,7 +1,3 @@
-.temp {
-    display: none;
-}
-
 .tournamentShowMain {
     display: flex;
     flex-direction: column;
@@ -124,6 +120,7 @@
     width: 100%;
     height: 100%;
     opacity: 0.5;
+    object-fit: contain;
 }
 
 .tournamentShowImageShadow {
@@ -165,6 +162,7 @@
 }
 
 .tournamentShowSponsors .tournamentShowSponsorsImages img {
+    object-fit: contain;
     height: 150px;
     width: 150px;
     margin: 5px 15px;
@@ -380,11 +378,71 @@
 .showWinner p {
     padding: 5px 10px;
     border-right: 1px solid #aaa;
+    white-space: nowrap;
 }
 
 .showWinner i {
     padding: 5px;
     color: gold;
     font-size: 31px;
+}
+
+@media (max-width: 767px) {
+    .tournamentShowMain .tournamentInfo {
+        order: 1;
+    }
+
+    .tournamentShowMain .tournamentShowSponsors {
+        order: 4;
+    }
+
+    .tournamentShowMain .tournamentShowSignUp {
+        order: 2;
+    }
+
+    .tournamentShowMain .tournamentShowResults {
+        order: 3;
+    }
+
+    .tournamentShowSponsors .tournamentShowSponsorsImages img {
+        height: 100px;
+        width: 100px;
+    }
+}
+
+@media (max-width: 560px) {
+    .tournamentShowMain .tournamentInfo .tournamentInfoSection {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tournamentShowMain .tournamentInfo .tournamentInfoSection div {
+        background-color: rgb(178, 252, 162);
+    }
+
+    .tournamentShowMain section[class = "tournamentInfo"] .tournamentInfoSection label {
+        border-radius: 5vw 5vw 0 0;
+        border: 1px solid white;
+        border-bottom: none;
+    }
+
+    .tournamentShowMain section[class = "tournamentInfo"] .tournamentInfoSection p {
+        width: 100%;
+        color: white;
+        justify-content: flex-start;
+        border-radius: 0 5vw 5vw 5vw;
+        border: 1px solid white;
+    }
+
+    .tournamentShowSponsors .tournamentShowSponsorsImages img {
+        height: 75px;
+        width: 75px;
+    }
+}
+
+@media (max-width: 420px) {
+    .tournamentShowMain .tournamentShowSignUp form input {
+        font-size: 2rem;
+    }
 }
 

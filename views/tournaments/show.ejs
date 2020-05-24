@@ -12,7 +12,7 @@
 <article class="tournamentShowMain">
     <section class="tournamentInfo">
         <div class="tournamentShowImage">
-            <img src="https://www.w3schools.com/w3css/img_lights.jpg"/>
+            <img src="<%= tournament.avatar %>"/>
             <div class="tournamentShowImageShadow"></div>
         </div>
         <div class="tournamentInfoSection">
@@ -127,7 +127,7 @@
                 <div></div>
                 <div class="winnerTitle">
                     <% if( tournament.winnerId ) { %>
-                        <p>tournament.winnerId</p>
+                        <p><%= tournament.winnerId %></p>
                     <% } else { %>
                         <p>? ? ?</p>
                     <% } %>

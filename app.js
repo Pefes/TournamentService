@@ -9,7 +9,9 @@ const express = require( "express" ),
     checkTournamentStatus = require( "./middleware/checkTournamentStatus" ),
     createDuels = require( "./middleware/createDuels" ),
     assignParticipantsToDuels = require( "./middleware/assignParticipantsToDuels.js" ),
+    checkIfRoundEnded = require( "./middleware/checkIfRoundEnded" ),
     checkDuelStatus = require( "./middleware/checkDuelStatus" ),
+    checkIfTournamentEnded = require( "./middleware/checkIfTournamentEnded" ),
     localsInit = require( "./middleware/localsInit" ),
     indexRoutes = require( "./routes" ),
     tournamentRoutes = require( "./routes/tournaments/tournaments" );
@@ -35,8 +37,10 @@ app.use( passport.session() );
 app.use( localsInit );
 app.use( checkTournamentStatus );
 app.use( createDuels );
-app.use( assignParticipantsToDuels )
+app.use( assignParticipantsToDuels );
+app.use( checkIfRoundEnded );
 app.use( checkDuelStatus );
+app.use( checkIfTournamentEnded );
 
 
 //add routes

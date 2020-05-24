@@ -44,6 +44,7 @@ nav {
     width: 70%;
     height: 50px;
     margin: 5px;
+    border: 1px solid white;
     background-color: rgb(54, 52, 52);
     color: rgb(253, 253, 253);
     border-radius: 25px;
@@ -91,6 +92,22 @@ nav {
 .navList input:hover, .navList a:hover {
     cursor: pointer;
     background-color: darkblue;
+}
+
+.navList form input {
+    border: none;
+    background-color: transparent;
+    font-family: "Balsamiq Sans";
+    font-size: 1rem;
+    padding: 0;
+    border: none;
+    padding-right: 5px;
+}
+
+.navList form input:hover {
+    background-color: transparent;
+    border-bottom: 3px solid white;
+    border-radius: 7.5px;
 }
 
 .collapse {
@@ -141,19 +158,22 @@ nav {
     box-shadow: 9px 9px 24px -10px rgba(0,0,0,0.65);
     border-radius: 0 0 25px 25px;
     height: 0;
-    transition: height 0.25s linear;
-    transition-delay: 0.15s;
-}
-
-.mobileDevContainerVisible {
-    height: 125%;
+    transition: height 0.1s linear;
+    border: 1px solid white;
 }
 
 .mobileDevList {
     list-style: none;
-    padding: 0 20px;
+    padding: 0 15px;
     opacity: 0;
-    transition: opacity 0.20s ease;
+    transition: opacity 0s linear;
+    transition-delay: 0s;
+}
+
+.mobileDevListVisible {
+    opacity: 1;
+    transition: opacity 0.1s linear;
+    transition-delay: 0.1s;
 }
 
 .mobileDevList li {
@@ -175,12 +195,8 @@ nav {
     border-radius: 5px;
 }
 
-.mobileDevListVisible {
-    opacity: 1;
-}
-
 .loginPopUp {
-    z-index: 100;
+    z-index: 120;
     position: absolute;
     width: 75px;
     height: 75px;
@@ -188,8 +204,8 @@ nav {
     top: 0;
     left: 0;
     background-color: rgb(54, 52, 52);
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
     transition: height 0.15s linear, width 0.15s linear, border-radius 0.15s linear;
 
     -webkit-box-shadow: 10px 10px 25px -8px rgba(0,0,0,0.5);
@@ -303,5 +319,21 @@ nav {
 @media (max-width: 750px) {
     .loginPopUp {
         display: none;
+    }
+}
+
+@media (max-width: 360px) {
+    nav {
+        width: 100%;
+    }
+
+    .mobileDevContainer {
+        right: 0;
+    }
+}
+
+@media (min-width: 1000px) {
+    nav[class = "navShowMobileList"] {
+        border-bottom-right-radius: 25px;
     }
 }
