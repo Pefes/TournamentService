@@ -13,11 +13,13 @@ const express = require( "express" ),
     checkDuelStatus = require( "./middleware/checkDuelStatus" ),
     checkIfTournamentEnded = require( "./middleware/checkIfTournamentEnded" ),
     localsInit = require( "./middleware/localsInit" ),
+    removeFiles = require( "./utilities/removeFiles" ),
     indexRoutes = require( "./routes" ),
     tournamentRoutes = require( "./routes/tournaments/tournaments" );
 
 
 // settings
+removeFiles( "public/images/tournaments" );
 initializePassport( passport );
 app.set( "view engine", "ejs" );
 app.use( express.static( __dirname + "/public" ) );

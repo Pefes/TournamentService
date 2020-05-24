@@ -31,21 +31,19 @@ const sequelize = new Sequelize(
 // import models
 const userModel = require( "../models/user" ),
     tournamentModel = require( "../models/tournament" ),
-    sponsorModel = require( "../models/sponsor" ),
     participationModel = require( "../models/participation" ),
     duelModel = require( "../models/duel" );
 
 // create tables
 const User = userModel( sequelize, Sequelize ),
     Tournament = tournamentModel( sequelize, Sequelize ),
-    Sponsor = sponsorModel( sequelize, Sequelize )
     Participation = participationModel( sequelize, Sequelize ),
     Duel = duelModel( sequelize, Sequelize );
 
 // database connection
 sequelize.sync({ force: true })
 .then(() => {
-    seedDb( User, Tournament, Sponsor, Participation, Duel );
+    seedDb( User, Tournament, Participation, Duel );
     console.log( "Database & tables created here!" );
 });
 
@@ -54,7 +52,6 @@ module.exports = {
     sequelize: sequelize,
     User: User,
     Tournament: Tournament,
-    Sponsor: Sponsor,
     Participation: Participation,
     Duel: Duel
 };

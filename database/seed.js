@@ -1,4 +1,4 @@
-const seed = ( User, Tournament, Sponsor ) => {
+const seed = ( User, Tournament, Participation, Duel ) => {
     User.bulkCreate([{
         name: "pefes",
         surname: "pefesowsky",
@@ -61,17 +61,6 @@ const seed = ( User, Tournament, Sponsor ) => {
         currentSize: 24,
         startDate: "2021-05-09 00:00:00",
         deadlineDate: "2021-05-09 00:00:05",
-    }]);
-
-    Sponsor.bulkCreate([{
-        tournamentId: 1,
-        imageName: "Untitled.png",
-    }, {
-        tournamentId: 2,
-        imageName: "11.png",
-    }, {
-        tournamentId: 3,
-        imageName: "1.png",
     }]);
 
     Participation.bulkCreate([{

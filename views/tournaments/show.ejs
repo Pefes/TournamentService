@@ -44,7 +44,7 @@
             <p><%= tournament.status %></p>
         </div>
     </section>
-    <% if ( tournament.sponsors && tournament.sponsors.length > 0 ) { %>
+    <% if ( sponsors && sponsors.length > 0 ) { %>
         <section class="tournamentShowSponsors">
             <h1>SPONSORS</h1>
             <div class="tournamentShowSponsorsImages">
@@ -61,88 +61,90 @@
             </form>
         </section>
     <% } %>
-    <section class="tournamentShowResults">
-        <h1>TOURNAMENT LADDER</h1>
-        <div class="tournamentShowLadder">
-            <% for( let i = 1; i <= tournament.maxStage; i++ ) { %>
-                <div class="tournamentRound">
-                    <% duels.forEach(duel => { %>
-                        <% if( duel.stage === i ) { %>
-                            <div class="tournamentDuel">
-                                <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent, duel.winner ) ) { %>
-                                    <div class="pickWinner">Pick a winner!
-                                        <form action="/tournaments/<%= tournament.id %>/duels/<%= duel.id %>/pickWinner/<%= duel.firstOpponent %>" method="POST"></form>
-                                        <form action="/tournaments/<%= tournament.id %>/duels/<%= duel.id %>/pickWinner/<%= duel.secondOpponent %>" method="POST"></form>
+    <% if( tournament.status !== "open" ) { %>
+        <section class="tournamentShowResults">
+            <h1>TOURNAMENT LADDER</h1>
+            <div class="tournamentShowLadder">
+                <% for( let i = 1; i <= tournament.maxStage; i++ ) { %>
+                    <div class="tournamentRound">
+                        <% duels.forEach(duel => { %>
+                            <% if( duel.stage === i ) { %>
+                                <div class="tournamentDuel">
+                                    <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent, duel.winner ) ) { %>
+                                        <div class="pickWinner">Pick a winner!
+                                            <form action="/tournaments/<%= tournament.id %>/duels/<%= duel.id %>/pickWinner/<%= duel.firstOpponent %>" method="POST"></form>
+                                            <form action="/tournaments/<%= tournament.id %>/duels/<%= duel.id %>/pickWinner/<%= duel.secondOpponent %>" method="POST"></form>
+                                        </div>
+                                    <% } %>
+                                    <div class="firstOpponent 
+                                    <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent, duel.winner ) ) { %>
+                                        <%= 'myDuel' %>
+                                    <% } %>">
+                                        <p><%= duel.firstOpponent %></p>
+                                        <% if( duel.winner === duel.firstOpponent && duel.winner != null ) { %>
+                                            <div class="winner"><i class="fas fa-check"></i></div>
+                                        <% } else if( duel.winner === duel.secondOpponent && duel.winner != null ) { %>
+                                            <div class="loser"><i class="fas fa-times"></i></div>
+                                        <% } else { %>
+                                            <div class="noWinner"><i class="fas fa-question"></i></div>
+                                        <% } %>
+                                    </div>
+                                    <div class="secondOpponent 
+                                    <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent, duel.winner ) ) { %>
+                                        <%= 'myDuel' %>
+                                    <% } %>">
+                                        <p><%= duel.secondOpponent %></p>
+                                        <% if( duel.winner === duel.secondOpponent && duel.winner != null ) { %>
+                                            <div class="winner"><i class="fas fa-check"></i></div>
+                                        <% } else if( duel.winner === duel.firstOpponent && duel.winner != null ) { %>
+                                            <div class="loser"><i class="fas fa-times"></i></div>
+                                        <% } else { %>
+                                            <div class="noWinner"><i class="fas fa-question"></i></div>
+                                        <% } %>     
+                                    </div>
+                                </div>
+                            <% } %>
+                        <% }); %>
+                    </div>
+                    <% if( i < tournament.maxStage ) { %>
+                        <div class="tournamentRound tournamentColumn">
+                            <% duels.forEach(duel => { %>
+                                <% if( duel.stage === i ) { %>
+                                    <div class="tournamentDuel">
+                                        <div class="firstOpponent"></div>
+                                        <div class="secondOpponent"></div>
                                     </div>
                                 <% } %>
-                                <div class="firstOpponent 
-                                <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent, duel.winner ) ) { %>
-                                    <%= 'myDuel' %>
-                                <% } %>">
-                                    <p><%= duel.firstOpponent %></p>
-                                    <% if( duel.winner === duel.firstOpponent && duel.winner != null ) { %>
-                                        <div class="winner"><i class="fas fa-check"></i></div>
-                                    <% } else if( duel.winner === duel.secondOpponent && duel.winner != null ) { %>
-                                        <div class="loser"><i class="fas fa-times"></i></div>
-                                    <% } else { %>
-                                        <div class="noWinner"><i class="fas fa-question"></i></div>
-                                    <% } %>
-                                </div>
-                                <div class="secondOpponent 
-                                <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent, duel.winner ) ) { %>
-                                    <%= 'myDuel' %>
-                                <% } %>">
-                                    <p><%= duel.secondOpponent %></p>
-                                    <% if( duel.winner === duel.secondOpponent && duel.winner != null ) { %>
-                                        <div class="winner"><i class="fas fa-check"></i></div>
-                                    <% } else if( duel.winner === duel.firstOpponent && duel.winner != null ) { %>
-                                        <div class="loser"><i class="fas fa-times"></i></div>
-                                    <% } else { %>
-                                        <div class="noWinner"><i class="fas fa-question"></i></div>
-                                    <% } %>     
-                                </div>
-                            </div>
-                        <% } %>
-                    <% }); %>
-                </div>
-                <% if( i < tournament.maxStage ) { %>
-                    <div class="tournamentRound tournamentColumn">
-                        <% duels.forEach(duel => { %>
-                            <% if( duel.stage === i ) { %>
-                                <div class="tournamentDuel">
-                                    <div class="firstOpponent"></div>
-                                    <div class="secondOpponent"></div>
-                                </div>
-                            <% } %>
-                        <% }); %>
-                    </div>
-                    <div class="tournamentRound tournamentColumn">
-                        <% duels.forEach(duel => { %>
-                            <% if( duel.stage === i ) { %>
-                                <div class="tournamentDuel">
-                                    <div class="firstOpponent"></div>
-                                    <div class="secondOpponent"></div>
-                                </div>
-                            <% } %>
-                        <% }); %>
-                    </div>
-                <% } %>
-            <% } %>
-    
-            <div class="showWinner">
-                <div></div>
-                <div class="winnerTitle">
-                    <% if( tournament.winnerId ) { %>
-                        <p><%= tournament.winnerId %></p>
-                    <% } else { %>
-                        <p>? ? ?</p>
+                            <% }); %>
+                        </div>
+                        <div class="tournamentRound tournamentColumn">
+                            <% duels.forEach(duel => { %>
+                                <% if( duel.stage === i ) { %>
+                                    <div class="tournamentDuel">
+                                        <div class="firstOpponent"></div>
+                                        <div class="secondOpponent"></div>
+                                    </div>
+                                <% } %>
+                            <% }); %>
+                        </div>
                     <% } %>
-                    <i class="fas fa-crown"></i>
+                <% } %>
+        
+                <div class="showWinner">
+                    <div></div>
+                    <div class="winnerTitle">
+                        <% if( tournament.winnerId ) { %>
+                            <p><%= tournament.winnerId %></p>
+                        <% } else { %>
+                            <p>? ? ?</p>
+                        <% } %>
+                        <i class="fas fa-crown"></i>
+                    </div>
                 </div>
+        
             </div>
-    
-        </div>
-    </section>
+        </section>
+    <% } %>
     
 </article>
 

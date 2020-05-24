@@ -89,6 +89,12 @@
     font-weight: bold;
     border: 3px solid black;
     border-left: 1px solid black;
+    transition: color 0.25s linear, background-color 0.25s linear;
+}
+
+.tournamentsList .articleMore a:hover {
+    background-color: rgb(219, 252, 213);
+    color: rgb(83, 80, 80);
 }
 
 .pageCounter a[class = "disabledLink"] {

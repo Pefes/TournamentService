@@ -23,7 +23,7 @@ const tournament = ( sequelize, type ) => {
             defaultValue: null
         }
     }, {
-        timestamps: false
+        timestamps: true
     });
 };
 

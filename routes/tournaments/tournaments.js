@@ -13,26 +13,31 @@ const express = require( "express" ),
 router.get("/tournaments/page/:currentPage", async ( req, res ) => {
     try {
         const tournaments = await db.Tournament.findAll({ raw: true });
-        const sponsors = await db.Sponsor.findAll({ raw: true });
+        const tournamentsPage = await db.Tournament.findAll({ 
+            order: [[ "createdAt", "DESC" ]],
+            limit: 10,
+            offset: req.params.currentPage * 10 - 10,
+            raw: true 
+        });
+
         const maxPage = Math.ceil( tournaments.length / 10 );
         const currentPage = parseInt( req.params.currentPage, 10);
-        const tournamentsWithAvatars = [];
+        const tournamentsPageWithAvatars = [];
     
-        tournaments.forEach(tournament => {
+        tournamentsPage.forEach(tournament => {
             try {
-                let avatar = getAllFiles( "public/images/" + tournament.id + "/avatar/" )[0];
-                tournamentsWithAvatars.push({ 
+                let avatar = getAllFiles( "public/images/tournaments/" + tournament.id + "/avatar/" )[0];
+                tournamentsPageWithAvatars.push({ 
                     ...tournament, 
-                    avatar: "/images/" + tournament.id + "/avatar/" + avatar
+                    avatar: "/images/tournaments/" + tournament.id + "/avatar/" + avatar
                 });
             } catch ( error ) {
-                tournamentsWithAvatars.push( tournament );
+                tournamentsPageWithAvatars.push( tournament );
             }
         });
     
         res.render("./tournaments/index.ejs", { 
-            tournaments: tournamentsWithAvatars, 
-            sponsors: sponsors,
+            tournaments: tournamentsPageWithAvatars, 
             maxPage: maxPage,
             currentPage: currentPage
         });
@@ -53,10 +58,10 @@ router.get("/tournaments/owned/page/:currentPage", isLoggedIn, async ( req, res 
     
         tournaments.forEach(tournament => {
             try {
-                let avatar = getAllFiles( "public/images/" + tournament.id + "/avatar/" )[0];
+                let avatar = getAllFiles( "public/images/tournaments/" + tournament.id + "/avatar/" )[0];
                 tournamentsWithAvatars.push({ 
                     ...tournament, 
-                    avatar: "/images/" + tournament.id + "/avatar/" + avatar
+                    avatar: "/images/tournaments/" + tournament.id + "/avatar/" + avatar
                 });
             } catch ( error ) {
                 tournamentsWithAvatars.push( tournament );
@@ -92,10 +97,10 @@ router.get("/tournaments/signedUp/page/:currentPage", async ( req, res ) => {
     
         tournaments.forEach(tournament => {
             try {
-                let avatar = getAllFiles( "public/images/" + tournament.id + "/avatar/" )[0];
+                let avatar = getAllFiles( "public/images/tournaments/" + tournament.id + "/avatar/" )[0];
                 tournamentsWithAvatars.push({ 
                     ...tournament, 
-                    avatar: "/images/" + tournament.id + "/avatar/" + avatar
+                    avatar: "/images/tournaments/" + tournament.id + "/avatar/" + avatar
                 });
             } catch ( error ) {
                 tournamentsWithAvatars.push( tournament );
@@ -125,9 +130,9 @@ router.post("/tournaments", isLoggedIn, upload.any( "images" ), async ( req, res
        
         req.files.forEach(( file, index ) => {
             if ( index === 0 )
-                move( file.path, "public/images/" + tournament.id + "/avatar/", file.filename );
+                move( file.path, "public/images/tournaments/" + tournament.id + "/avatar/", file.filename );
             else
-                move( file.path, "public/images/" + tournament.id + "/sponsors/", file.filename );
+                move( file.path, "public/images/tournaments/" + tournament.id + "/sponsors/", file.filename );
         });
     
         res.redirect( "/tournaments/page/1" );
@@ -153,15 +158,15 @@ router.get("/tournaments/:id", async ( req, res ) => {
         let avatar = "";
     
         try {
-            const images = getAllFiles( "public/images/" + tournament.id + "/sponsors/" );
+            const images = getAllFiles( "public/images/tournaments/" + tournament.id + "/sponsors/" );
             images.forEach(image => {
-                sponsors.push( "/images/" + tournament.id + "/sponsors/" + image );
+                sponsors.push( "/images/tournaments/" + tournament.id + "/sponsors/" + image );
             });
         } catch ( error ) {  }
 
         try {
-            const avatarImage = getAllFiles( "public/images/" + tournament.id + "/avatar/" )[0]; 
-            avatar = "/images/" + tournament.id + "/avatar/" + avatarImage;
+            const avatarImage = getAllFiles( "public/images/tournaments/" + tournament.id + "/avatar/" )[0]; 
+            avatar = "/images/tournaments/" + tournament.id + "/avatar/" + avatarImage;
         } catch ( error ) {  }
         
         tournament.startDate = tournament.startDate.replace( "T", " " );
