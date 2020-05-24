@@ -21,6 +21,7 @@ body {
     flex-direction: column;
     align-items: center;
     position: relative;
+    padding-bottom: 20px;
 }
 
 .content::after {
@@ -294,6 +295,7 @@ nav {
     font-size: 0.5rem;
     padding: 0;
     padding-right: 0.5em;
+    transition: color 0.2s linear;
 }
 
 #loginPopUpInfoIconHover {
@@ -318,6 +320,7 @@ nav {
     cursor: pointer;
     padding: 0.25em;
     font-weight: bold;
+    transition: color 0.2s linear;
 }
 
 .loginPopUpInfo input:hover {

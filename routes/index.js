@@ -3,7 +3,8 @@ const express = require( "express" ),
     bcrypt = require( "bcrypt" ),
     passport = require( "passport" ),
     db = require( "../database/databaseConnection" ),
-    { isLoggedIn, isNotLoggedIn } = require( "../utilities/passportUtilities" );
+    { isLoggedIn, isNotLoggedIn } = require( "../utilities/passportUtilities" ),
+    userInputValidation = require( "../utilities/userInputValidation" );
 
 
 
@@ -17,7 +18,7 @@ router.get("/register", isNotLoggedIn, ( req, res ) => {
 });
 
 
-router.post("/register", isNotLoggedIn, async ( req, res ) => {
+router.post("/register", isNotLoggedIn, userInputValidation, async ( req, res ) => {
     try {
         const hashedPassword = await bcrypt.hash( req.body.password, 10 );
 
