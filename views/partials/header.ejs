@@ -22,7 +22,7 @@
                 <i class="fas fa-user"></i>
                 <div class="loginPopUpInfo">
                     <p class="userWelcome">Hello <span class="usernameLabel"><%= currentUser.dataValues.name %></span>!</p>
-                    <a href=""><i class="fas fa-arrow-right"></i>Signed up tournaments...</a>
+                    <a href="/tournaments/signedUp/page/1"><i class="fas fa-arrow-right"></i>Signed up tournaments...</a>
                     <a href="/tournaments/owned/page/1"><i class="fas fa-arrow-right"></i>Owned tournaments...</a>
                     <form action="/logout?_method=DELETE" method="POST" >
                         <input type="submit" value="LOG OUT" />

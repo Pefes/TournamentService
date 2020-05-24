@@ -10,7 +10,11 @@
     <% tournaments.forEach(tournament => { %>
         <article>
             <section class="articleImg">
-                <img src="<%= tournament.avatar %>"/>
+                <img src="<% if ( tournament.avatar ) { %>
+                                <%= tournament.avatar %>
+                            <% } else { %>
+                                <%= '/images/reserveAvatar/reserveAvatar.png' %>
+                            <% } %>"/>
             </section>
             <section class="articleBody">
                 <div class="articleInfo">

@@ -12,7 +12,11 @@
 <article class="tournamentShowMain">
     <section class="tournamentInfo">
         <div class="tournamentShowImage">
-            <img src="<%= tournament.avatar %>"/>
+            <img src="<% if ( tournament.avatar ) { %>
+                            <%= tournament.avatar %>
+                        <% } else { %>
+                            <%= '/images/reserveAvatar/reserveAvatar.png' %>
+                        <% } %>"/>
             <div class="tournamentShowImageShadow"></div>
         </div>
         <div class="tournamentInfoSection">
@@ -40,14 +44,16 @@
             <p><%= tournament.status %></p>
         </div>
     </section>
-    <section class="tournamentShowSponsors">
-        <h1>SPONSORS</h1>
-        <div class="tournamentShowSponsorsImages">
-            <% sponsors.forEach(sponsor => { %>
-                <img src="<%= sponsor %>" />
-            <% }) %>
-        </div>
-    </section>
+    <% if ( tournament.sponsors && tournament.sponsors.length > 0 ) { %>
+        <section class="tournamentShowSponsors">
+            <h1>SPONSORS</h1>
+            <div class="tournamentShowSponsorsImages">
+                <% sponsors.forEach(sponsor => { %>
+                    <img src="<%= sponsor %>" />
+                <% }) %>
+            </div>
+        </section>
+    <% } %>
     <% if( tournament.status === "open" ) { %>
         <section class="tournamentShowSignUp">
             <form action="/tournaments/<%= tournament.id %>/signup" method="POST">
