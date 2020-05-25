@@ -1,5 +1,14 @@
 <%- include ("../partials/header") %>
 
+<div class="forgotPasswordBackground">
+</div>
+<div class="forgotPasswordDialog">
+    <form action="/resetPassword" method="POST">
+        <p>Please fill in the email that you used to register and wait for message with instructions on how to reset your password.</p>
+        <input type="text" placeholder="Type email here..." />
+        <input type="submit" value="Send email!" />
+    </form>
+</div>
 
 <form action="/login" method="POST" class="inputForm">
     <div class="formGroupTitle">
@@ -12,6 +21,9 @@
     <div class="formGroup">
         <label>Password:</label>
         <input name="password" type="password" />
+    </div>
+    <div class="forgotPassword">
+        <p>Forgot Your Password</p>
     </div>
     <div class="formGroupSubmit">
         <input type="submit" value="Log In" />

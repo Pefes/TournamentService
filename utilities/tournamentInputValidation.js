@@ -1,34 +1,59 @@
+const datetimeRegEx = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}/;
+
 const isNumber = ( variable ) => { 
     return !isNaN( parseFloat( variable ) ) && !isNaN( variable - 0 ) ;
 }
 
+const areFilesValidated = ( files ) => {
+    let valid = true;
 
-const tournamentInputValidation = ( req, res, next ) => {
-    if ( req.body.name ) {
-        req.flash( "error", "Tournament's name is required!" );
-        res.render( "./tournaments/new.ejs" );
-    } else if ( req.body.name.length > 100 ) {
-        req.flash( "error", "Tournament's name is too long! (max 100 characters)" );
-        res.render( "./tournaments/new.ejs" );
-    }
+    files.forEach(file => {
+        if ( file.mimetype !== "image/png" && file.mimetype !== "image/jpeg" )
+            valid = false;
+    });
 
-    if ( req.body.branch ) {
-        req.flash( "error", "Tournament's branch is required!" );
-        res.render( "./tournaments/new.ejs" );
-    } else if ( req.body.branch.length > 100 ) {
-        req.flash( "error", "Tournament's branch is too long! (max 100 characters)" );
-        res.render( "./tournaments/new.ejs" );
-    }
+    return valid;
+}
 
-    if ( req.body.size ) {
-        req.flash( "error", "Tournament's size is required!" );
-        res.render( "./tournaments/new.ejs" );
-    } else if ( req.body.size.length > 100 ) {
-        req.flash( "error", "Tournament's name is too long! (max 100 characters)" );
-        res.render( "./tournaments/new.ejs" );
-    }
 
-    return next();    
+const tournamentInputValidation = ( form, formFiles ) => {
+    
+    if ( form.name.length === 0 )
+        return { validated: false, errorMessage: "Tournament's name is required!" };
+    else if ( form.name.length > 100 )
+        return { validated: false, errorMessage: "Tournament's name is too long! (max 100 characters)" };
+
+    if ( form.branch.length === 0 )
+        return { validated: false, errorMessage: "Tournament's branch is required!" };
+    else if ( form.branch.length > 100 )
+        return { validated: false, errorMessage: "Tournament's branch is too long! (max 100 characters)" };
+
+    if ( form.startDate.length === 0 )
+        return { validated: false, errorMessage: "Tournament's start date is required!" };
+    else if ( !datetimeRegEx.test( form.startDate ) )
+        return { validated: false, errorMessage: "Tournament's start date is invalid! Must be like \"yyyy-mm-dd hh:mm\"" };
+    else if ( new Date( form.startDate ) < Date.now() )
+        return { validated: false, errorMessage: "You can't create tournaments from the past!" };
+
+    if ( form.maxSize.length === 0 )
+        return { validated: false, errorMessage: "Tournament's size is required!" };
+    else if ( !isNumber(form.maxSize) )
+        return { validated: false, errorMessage: "Tournament's size must be a number!" }
+    else if ( form.maxSize > 100 )
+        return { validated: false, errorMessage: "Tournament's size is too big! (max 100 participants)" };
+
+    if ( form.deadlineDate.length === 0 )
+        return { validated: false, errorMessage: "Tournament's deadline date is required!" };
+    else if ( !datetimeRegEx.test( form.deadlineDate ) )
+        return { validated: false, errorMessage: "Tournament's deadline date is invalid! Must be like \"yyyy-mm-dd hh:mm\"" };
+
+    if ( new Date( form.startDate ) < new Date( form.deadlineDate ) )
+        return { validated: false, errorMessage: "Tournament's deadline date can't be later than start date!" };
+
+    if ( !areFilesValidated( formFiles ) )
+        return { validated: false, errorMessage: "Images must be in PNG or JPEG format!" };
+            
+    return { validated: true };
 };
 
 

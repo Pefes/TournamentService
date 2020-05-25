@@ -1,4 +1,15 @@
 <%- include ("../partials/header") %>
+<%
+    if ( typeof( previousForm ) === "undefined" ) {
+        var previousForm = {
+            name: "",
+            branch: "",
+            startDate: "",
+            maxSize: "",
+            deadlineDate: ""
+        }
+    }
+%>
 
 
 <form action="/tournaments" method="POST" enctype="multipart/form-data" class="inputForm tournamentForm">
@@ -7,23 +18,23 @@
     </div>
     <div class="formGroup">
         <label>Name:</label>
-        <input name="name" type="text" placeholder="Name"/>
+        <input name="name" type="text" placeholder="Name" value="<%= previousForm.name %>" />
     </div>
     <div class="formGroup">
         <label>Branch:</label>
-        <input name="branch" type="text" placeholder="Branch"/>
+        <input name="branch" type="text" placeholder="Branch" value="<%= previousForm.branch %>" />
     </div>
     <div class="formGroup">
         <label>Start Date:</label>
-        <input name="startDate" type="datetime-local" placeholder="Start date"/>
+        <input name="startDate" type="datetime-local" placeholder="Start date" value="<%= previousForm.startDate %>" />
     </div>
     <div class="formGroup">
-        <label>Max size:</label>
-        <input name="maxSize" type="number" placeholder="Size"/>
+        <label>Max Size:</label>
+        <input name="maxSize" type="number" placeholder="Size" value="<%= previousForm.maxSize %>" />
     </div>
     <div class="formGroup">
         <label>Deadline:</label>
-        <input name="deadlineDate" type="datetime-local" placeholder="Deadline"/>
+        <input name="deadlineDate" type="datetime-local" placeholder="Deadline" value="<%= previousForm.deadlineDate %>" />
     </div>
     <div class="formGroup">
         <label>Avatar:</label>

@@ -32,13 +32,15 @@ const sequelize = new Sequelize(
 const userModel = require( "../models/user" ),
     tournamentModel = require( "../models/tournament" ),
     participationModel = require( "../models/participation" ),
-    duelModel = require( "../models/duel" );
+    duelModel = require( "../models/duel" ),
+    accountVerificationModel = require( "../models/accoutVerification" );
 
 // create tables
 const User = userModel( sequelize, Sequelize ),
     Tournament = tournamentModel( sequelize, Sequelize ),
     Participation = participationModel( sequelize, Sequelize ),
-    Duel = duelModel( sequelize, Sequelize );
+    Duel = duelModel( sequelize, Sequelize ),
+    AccountVerification = accountVerificationModel( sequelize, Sequelize );
 
 // database connection
 sequelize.sync({ force: true })
@@ -53,5 +55,6 @@ module.exports = {
     User: User,
     Tournament: Tournament,
     Participation: Participation,
-    Duel: Duel
+    Duel: Duel,
+    AccountVerification: AccountVerification
 };

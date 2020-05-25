@@ -1,0 +1,101 @@
+.forgotPassword {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.forgotPassword p {
+    margin: 10px;
+    cursor: pointer;
+    transition: color 0.15s linear;
+}
+
+.forgotPassword p:hover {
+    color: rgb(100, 100, 100);
+}
+
+.forgotPasswordBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -150;
+    opacity: 0;
+    transition: opacity 0.25s linear;
+}
+
+.forgotPasswordBackgroundVisible {
+    z-index: 150;
+    opacity: 1;
+}
+
+.forgotPasswordDialog {
+    font-family: "Balsamiq Sans";
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 5px;
+    max-width: 300px;
+    padding: 20px;
+    border-top: 1.5px solid rgb(97, 97, 97);
+    border-left: 1.5px solid rgb(97, 97, 97);
+    border-right: 1.5px solid rgb(170, 170, 170);
+    border-bottom: 1.5px solid rgb(170, 170, 170);
+    transition: top 0.25s linear;
+    z-index: 160;
+}
+
+.forgotPasswordDialogVisible {
+    top: 50%;
+}
+
+.forgotPasswordDialog form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.forgotPasswordDialog p {
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    width: 250px;
+}
+
+.forgotPasswordDialog input {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.forgotPasswordDialog input[type="submit"]  {
+    font-family: "Balsamiq Sans";
+    background-color: rgb(54, 52, 52);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.15s linear, background-color 0.15s linear;
+}
+
+.forgotPasswordDialog input[type="submit"]:hover {
+    background-color: white;
+    color: rgb(54, 52, 52);
+}
+
+.forgotPasswordDialog input[type="text"]{
+    width: 100%;
+}
+
+.forgotPasswordDialog input:focus {
+    outline: transparent;
+}
+
+@media (max-width: 500px) {
+    .forgotPasswordDialog {
+        max-width: unset;
+    }
+}

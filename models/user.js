@@ -8,7 +8,11 @@ const user = ( sequelize, type ) => {
         name: type.STRING,
         surname: type.STRING,
         email: type.STRING,
-        password: type.STRING
+        password: type.STRING,
+        active: {
+            type: type.INTEGER,
+            defaultValue: 0
+        }
     }, {
         timestamps: false
     });

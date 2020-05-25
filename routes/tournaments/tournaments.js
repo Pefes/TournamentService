@@ -121,25 +121,32 @@ router.get("/tournaments/signedUp/page/:currentPage", async ( req, res ) => {
 
 
 // create new tournament
-router.post("/tournaments", isLoggedIn, upload.any( "images" ), tournamentInputValidation, async ( req, res ) => {
-    try {
-        const tournament = await db.Tournament.create({
-            ...req.body,
-            ownerId: req.user.id,
-            currentSize: 0
-        })
-       
-        req.files.forEach(( file, index ) => {
-            if ( index === 0 )
-                move( file.path, "public/images/tournaments/" + tournament.id + "/avatar/", file.filename );
-            else
-                move( file.path, "public/images/tournaments/" + tournament.id + "/sponsors/", file.filename );
-        });
-    
-        res.redirect( "/tournaments/page/1" );
-    } catch ( error ) {
-        console.log( "Error occured: " + error );
-        res.render( "./index/errorHandler.ejs" );
+router.post("/tournaments", isLoggedIn, upload.any( "images" ), async ( req, res ) => {
+    const validationResponse = tournamentInputValidation( req.body, req.files );
+
+    if ( validationResponse.validated ) {
+        try {
+            const tournament = await db.Tournament.create({
+                ...req.body,
+                ownerId: req.user.id,
+                currentSize: 0
+            })
+           
+            req.files.forEach(( file, index ) => {
+                if ( index === 0 )
+                    move( file.path, "public/images/tournaments/" + tournament.id + "/avatar/", file.filename );
+                else
+                    move( file.path, "public/images/tournaments/" + tournament.id + "/sponsors/", file.filename );
+            });
+        
+            res.redirect( "/tournaments/page/1" );
+        } catch ( error ) {
+            console.log( "Error occured: " + error );
+            res.render( "./index/errorHandler.ejs" );
+        }
+    } else {
+        req.flash( "error", validationResponse.errorMessage );
+        res.render( "./tournaments/new.ejs", { previousForm: req.body } );
     }
 });
 

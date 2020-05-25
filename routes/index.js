@@ -3,7 +3,8 @@ const express = require( "express" ),
     bcrypt = require( "bcrypt" ),
     passport = require( "passport" ),
     db = require( "../database/databaseConnection" ),
-    { isLoggedIn, isNotLoggedIn } = require( "../utilities/passportUtilities" ),
+    { isLoggedIn, isNotLoggedIn, isActiveAccount } = require( "../utilities/passportUtilities" ),
+    sendVerificationEmail = require( "../utilities/sendVerificationEmail" ),
     userInputValidation = require( "../utilities/userInputValidation" );
 
 
@@ -25,11 +26,12 @@ router.post("/register", isNotLoggedIn, async ( req, res ) => {
         try {
             const hashedPassword = await bcrypt.hash( req.body.password, 10 );
     
-            db.User.create({
+            const createdUser = await db.User.create({
                 ...req.body,
                 password: hashedPassword
             })
     
+            sendVerificationEmail( req.body.email, req.body.name, createdUser.id );
             res.redirect( "/login" );
         }
         catch ( error ) {
@@ -43,12 +45,24 @@ router.post("/register", isNotLoggedIn, async ( req, res ) => {
 });
 
 
+router.get("/verify/:key", async ( req, res ) => {
+    const verification = await db.AccountVerification.findOne({ where: { key: req.params.key }, raw: true });
+
+    if ( verification ) {
+        db.User.update({ active: 1 }, { where: { id: verification.userId } });
+        res.render( "./index/login.ejs" );
+    } else {
+        res.render( "./index/errorHandler.ejs" );
+    }
+});
+
+
 router.get("/login", isNotLoggedIn, ( req, res ) => {
     res.render( "./index/login.ejs" );
 });
 
 
-router.post("/login", isNotLoggedIn, passport.authenticate("local", { 
+router.post("/login", isNotLoggedIn, isActiveAccount, passport.authenticate("local", { 
     successRedirect: "/", 
     failureRedirect: "/login", 
     failureFlash: true 

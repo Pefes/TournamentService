@@ -61,17 +61,25 @@ main {
 
 .formGroupSubmit input {
     background-color: rgb(54, 52, 52);
+    border: 1px solid black;
+    padding: 7.5px;
     margin-top: 15%;
+    margin-bottom: 10px;
     color: white;
     font-family: inherit;
     text-transform: uppercase;
-    border: none;
     border-radius: 5px;
     font-size: 1.5em;
     cursor: pointer;
     -webkit-box-shadow: 10px 10px 25px -12px rgba(0,0,0,0.5);
     -moz-box-shadow: 10px 10px 25px -12px rgba(0,0,0,0.5);
     box-shadow: 10px 10px 25px -12px rgba(0,0,0,0.5);
+    transition: color 0.15s linear, background-color 0.15s linear;
+}
+
+.formGroupSubmit input:hover {
+    background-color: white;
+    color: rgb(54, 52, 52);
 }
 
 @media (max-width: 750px) {

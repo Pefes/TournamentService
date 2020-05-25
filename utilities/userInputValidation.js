@@ -13,7 +13,7 @@ const isEmailOccupied = async ( email ) => {
 
 const userInputValidation = async ( form ) => {
     if ( form.name.length === 0 )
-        return { validated: false, errorMessage: "User's name is required" };
+        return { validated: false, errorMessage: "User's name is required!" };
     else if ( form.name.length > 100 )
         return { validated: false, errorMessage: "User's name is too long! (max 100 characters)" };
 
