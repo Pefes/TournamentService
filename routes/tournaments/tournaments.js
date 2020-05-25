@@ -5,7 +5,8 @@ const express = require( "express" ),
     upload = multer({ dest: "./uploads/temp" }),
     move = require( "../../utilities/moveFiles" ),
     getAllFiles = require( "../../utilities/getAllFiles" ),
-    { isLoggedIn, isNotLoggedIn } = require( "../../utilities/passportUtilities" );
+    { isLoggedIn, isNotLoggedIn } = require( "../../utilities/passportUtilities" ),
+    tournamentInputValidation = require( "../../utilities/tournamentInputValidation" );
 
 
 
@@ -120,7 +121,7 @@ router.get("/tournaments/signedUp/page/:currentPage", async ( req, res ) => {
 
 
 // create new tournament
-router.post("/tournaments", isLoggedIn, upload.any( "images" ), async ( req, res ) => {
+router.post("/tournaments", isLoggedIn, upload.any( "images" ), tournamentInputValidation, async ( req, res ) => {
     try {
         const tournament = await db.Tournament.create({
             ...req.body,

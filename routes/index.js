@@ -18,21 +18,28 @@ router.get("/register", isNotLoggedIn, ( req, res ) => {
 });
 
 
-router.post("/register", isNotLoggedIn, userInputValidation, async ( req, res ) => {
-    try {
-        const hashedPassword = await bcrypt.hash( req.body.password, 10 );
+router.post("/register", isNotLoggedIn, async ( req, res ) => {
+    const validationResponse = await userInputValidation( req.body );
 
-        db.User.create({
-            ...req.body,
-            password: hashedPassword
-        })
-
-        res.redirect( "/login" );
+    if ( validationResponse.validated ) {
+        try {
+            const hashedPassword = await bcrypt.hash( req.body.password, 10 );
+    
+            db.User.create({
+                ...req.body,
+                password: hashedPassword
+            })
+    
+            res.redirect( "/login" );
+        }
+        catch ( error ) {
+            console.log( "Error occured: " + error );
+            res.render( "./index/errorHandler.ejs" );
+        }    
+    } else {
+        req.flash( "error", validationResponse.errorMessage );
+        res.render( "./index/register.ejs", { previousForm: req.body } );
     }
-    catch ( error ) {
-        console.log( "Error occured: " + error );
-        res.render( "./index/errorHandler.ejs" );
-    }    
 });
 
 
