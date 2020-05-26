@@ -187,12 +187,12 @@ router.post("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, up
             res.redirect( "/tournaments/" + req.params.tournamentId );
         } else {
             req.flash( "error", validationResponse.errorMessage );
-            res.redirect( "/tournaments/" + tournamentId + "/edit" );
+            res.redirect( "/tournaments/" + req.params.tournamentId + "/edit" );
         }
     } catch ( error ) {
         console.log( "Error occured: " + error );
         req.flash( "error", "Something went wrong..." );
-        res.redirect( "/tournaments/" + tournamentId + "/edit" );
+        res.redirect( "/tournaments/" + req.params.tournamentId + "/edit" );
     }
 });
 
@@ -208,8 +208,25 @@ router.get("/tournaments/:id", async ( req, res ) => {
     try {
         const tournament = await db.Tournament.findOne({ where: { id: req.params.id }, raw: true });
         const duels = await db.Duel.findAll({ where: { tournamentId: tournament.id }, raw: true });
+        const duelsWithNicknames = [];
         const sponsors = [];
         let avatar = "";
+
+        try {
+            for ( duel of duels ) {
+                let firstOpponent = await db.User.findOne({ where: { id: duel.firstOpponent }, raw: true });
+                let secondOpponent = await db.User.findOne({ where: { id: duel.secondOpponent }, raw: true });
+
+                duelsWithNicknames.push({
+                    ...duel,
+                    firstOpponentSurname: firstOpponent ? firstOpponent.surname : null,
+                    secondOpponentSurname: secondOpponent ? secondOpponent.surname : null
+                });
+            }
+
+            if ( tournament.winnerId ) 
+                tournament.winnerName = await db.User.findOne({ where: { id: tournament.winnerId }, raw: true });
+        } catch ( error ) { console.log( "Error occured: " + error ); }
     
         try {
             const images = getAllFiles( "public/images/tournaments/" + tournament.id + "/sponsors/" );
@@ -226,7 +243,7 @@ router.get("/tournaments/:id", async ( req, res ) => {
         tournament.startDate = tournament.startDate.replace( "T", " " );
         tournament.deadlineDate = tournament.deadlineDate.replace( "T", " " );
     
-        res.render( "./tournaments/show.ejs", { tournament: { ...tournament, avatar: avatar }, duels: duels, sponsors: sponsors } );
+        res.render( "./tournaments/show.ejs", { tournament: { ...tournament, avatar: avatar }, duels: duelsWithNicknames, sponsors: sponsors } );
     } catch ( error ) {
         console.log( "Error occured: " + error );
         req.flash( "error", "Something went wrong..." );

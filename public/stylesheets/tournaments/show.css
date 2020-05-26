@@ -285,6 +285,14 @@
     align-items: center;
 }
 
+.tournamentShowLadder [class="tournamentRound"] .firstOpponent:hover, .tournamentShowLadder [class="tournamentRound"] .secondOpponent:hover {
+    background-color: #c0c0c0;
+}
+
+.myDuel:hover {
+    cursor: pointer;
+}
+
 .tournamentShowLadder .tournamentRound .secondOpponent {
     border-bottom: none;
 }

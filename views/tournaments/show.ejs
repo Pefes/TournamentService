@@ -83,7 +83,7 @@
                                     <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent, duel.winner ) ) { %>
                                         <%= 'myDuel' %>
                                     <% } %>">
-                                        <p><%= duel.firstOpponent %></p>
+                                        <p><%= duel.firstOpponentSurname %></p>
                                         <% if( duel.winner === duel.firstOpponent && duel.winner != null ) { %>
                                             <div class="winner"><i class="fas fa-check"></i></div>
                                         <% } else if( duel.winner === duel.secondOpponent && duel.winner != null ) { %>
@@ -96,7 +96,7 @@
                                     <% if( isMyDuel( currentUser, duel.firstOpponent, duel.secondOpponent, duel.winner ) ) { %>
                                         <%= 'myDuel' %>
                                     <% } %>">
-                                        <p><%= duel.secondOpponent %></p>
+                                        <p><%= duel.secondOpponentSurname %></p>
                                         <% if( duel.winner === duel.secondOpponent && duel.winner != null ) { %>
                                             <div class="winner"><i class="fas fa-check"></i></div>
                                         <% } else if( duel.winner === duel.firstOpponent && duel.winner != null ) { %>
@@ -136,8 +136,8 @@
                 <div class="showWinner">
                     <div></div>
                     <div class="winnerTitle">
-                        <% if( tournament.winnerId ) { %>
-                            <p><%= tournament.winnerId %></p>
+                        <% if( tournament.winnerName ) { %>
+                            <p><%= tournament.winnerName %></p>
                         <% } else { %>
                             <p>? ? ?</p>
                         <% } %>

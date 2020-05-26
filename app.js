@@ -9,6 +9,7 @@ const express = require( "express" ),
     initializePassport = require( "./utilities/passportConfig" ),
     flash = require( "express-flash" ),
     session = require( "express-session" ),
+    scheduler = require( "./database/schedule/scheduler" ),
     checkTournamentStatus = require( "./middleware/checkTournamentStatus" ),
     createDuels = require( "./middleware/createDuels" ),
     assignParticipantsToDuels = require( "./middleware/assignParticipantsToDuels.js" ),
@@ -37,6 +38,7 @@ app.use( session({
 }) );
 app.use( passport.initialize() );
 app.use( passport.session() );
+scheduler();
 
 
 // custom middleware

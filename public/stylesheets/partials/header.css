@@ -346,7 +346,7 @@ nav {
 }
 
 .loginPopUpInfo input {
-    background-color: rgb(255, 177, 177);
+    background-color: rgb(250, 107, 107);
     border: 1px solid white;
     border-radius: 0.5em;
     color: white;
@@ -354,11 +354,12 @@ nav {
     cursor: pointer;
     padding: 0.25em;
     font-weight: bold;
-    transition: color 0.2s linear;
+    transition: color 0.2s linear, background-color 0.2s linear;
 }
 
 .loginPopUpInfo input:hover {
     color: black;
+    background-color: rgb(255, 166, 166);
 }
 
 .userWelcome {
