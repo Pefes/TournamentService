@@ -4,8 +4,9 @@ const express = require( "express" ),
     passport = require( "passport" ),
     db = require( "../database/databaseConnection" ),
     { isLoggedIn, isNotLoggedIn, isActiveAccount } = require( "../utilities/passportUtilities" ),
-    sendVerificationEmail = require( "../utilities/sendVerificationEmail" ),
-    userInputValidation = require( "../utilities/userInputValidation" );
+    sendEmail = require( "../utilities/sendEmail" ),
+    userInputValidation = require( "../utilities/userInputValidation" ),
+    resetPasswordInputValidation = require( "../utilities/resetPasswordInputValidation" );
 
 
 
@@ -31,7 +32,7 @@ router.post("/register", isNotLoggedIn, async ( req, res ) => {
                 password: hashedPassword
             })
     
-            sendVerificationEmail( req.body.email, req.body.name, createdUser.id );
+            sendEmail.verification( req.body.email, req.body.name, createdUser.id );
             res.redirect( "/login" );
         }
         catch ( error ) {
@@ -46,13 +47,72 @@ router.post("/register", isNotLoggedIn, async ( req, res ) => {
 
 
 router.get("/verify/:key", async ( req, res ) => {
-    const verification = await db.AccountVerification.findOne({ where: { key: req.params.key }, raw: true });
+    try {
+        const verification = await db.VerificationKey.findOne({ where: { key: req.params.key }, raw: true });
 
-    if ( verification ) {
-        db.User.update({ active: 1 }, { where: { id: verification.userId } });
-        res.render( "./index/login.ejs" );
-    } else {
-        res.render( "./index/errorHandler.ejs" );
+        if ( verification ) {
+            db.User.update({ active: 1 }, { where: { id: verification.userId } });
+            db.VerificationKey.destroy({ where: { userId: verification.userId } });
+
+            res.render( "./index/login.ejs" );
+        } else {
+            res.render( "./index/errorHandler.ejs" );
+        }
+    } catch ( error ) {
+        console.log( "Error occured: " + error );
+        res.redirect( "/login" );
+    }
+});
+
+
+router.post("/resetPassword", ( req, res ) => {
+    try {
+        sendEmail.resetPassword( req.body.email );
+        res.redirect( "/login" );
+    } catch ( error ) {
+        res.redirect( "/login" );
+    }
+});
+
+
+router.get("/resetPassword/:key", async ( req, res ) => {
+    try {
+        const resetPasswordKey = await db.ResetPasswordKey.findOne({ where: { key: req.params.key } });
+
+        if ( resetPasswordKey ) {
+            res.render( "./index/resetPassword.ejs", { key: req.params.key, userId: resetPasswordKey.userId } );
+        } else {
+            res.render( "./index/errorHandler.ejs" );
+        }
+    } catch ( error ) {
+        res.redirect( "/login" );
+    }
+});
+
+
+router.post("/resetPassword/:key/user/:userId", async ( req, res ) => {
+    try {
+        const validationResponse = resetPasswordInputValidation( req.body );
+
+        if ( validationResponse.validated ) {
+            const resetPasswordKey = await db.ResetPasswordKey.findOne({ where: { key: req.params.key } });
+
+            if ( resetPasswordKey ) {
+                const hashedPassword = await bcrypt.hash( req.body.newPassword, 10 );
+                await db.User.update({ password: hashedPassword }, { where: { id: resetPasswordKey.userId } });
+    
+                res.redirect( "/login" );
+            } else {
+                console.log( "Error occured: wrong key!" );
+                res.redirect( "/login" );
+            }
+        } else {
+            req.flash( "error", validationResponse.errorMessage );
+            res.redirect( "/resetPassword/" + req.params.key );
+        }
+    } catch ( error ) {
+        console.log( "Error occured: " + error );
+        res.redirect( "/login" );
     }
 });
 

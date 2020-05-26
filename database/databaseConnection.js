@@ -33,14 +33,16 @@ const userModel = require( "../models/user" ),
     tournamentModel = require( "../models/tournament" ),
     participationModel = require( "../models/participation" ),
     duelModel = require( "../models/duel" ),
-    accountVerificationModel = require( "../models/accoutVerification" );
+    verificationKey = require( "../models/verificationKey" ),
+    resetPasswordKey = require( "../models/resetPasswordKey" );
 
 // create tables
 const User = userModel( sequelize, Sequelize ),
     Tournament = tournamentModel( sequelize, Sequelize ),
     Participation = participationModel( sequelize, Sequelize ),
     Duel = duelModel( sequelize, Sequelize ),
-    AccountVerification = accountVerificationModel( sequelize, Sequelize );
+    VerificationKey = verificationKey( sequelize, Sequelize ),
+    ResetPasswordKey = resetPasswordKey( sequelize, Sequelize );
 
 // database connection
 sequelize.sync({ force: true })
@@ -56,5 +58,6 @@ module.exports = {
     Tournament: Tournament,
     Participation: Participation,
     Duel: Duel,
-    AccountVerification: AccountVerification
+    VerificationKey: VerificationKey,
+    ResetPasswordKey: ResetPasswordKey
 };
