@@ -1,10 +1,9 @@
-const fs = require( "fs" );
+const rimraf = require( "rimraf" );
 
 
 const removeFiles = ( path ) => {
-    fs.rmdirSync( path, { recursive: true } );
+    rimraf.sync( path );
     console.log( "Removed images!" );
-};
-
+}
 
 module.exports = removeFiles;

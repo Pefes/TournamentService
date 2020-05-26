@@ -1,0 +1,85 @@
+body, html, .errorHandler {
+    overflow: hidden;
+}
+
+.errorHandler {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    width: 100%;
+}
+
+.errorHandler h1 {
+    text-transform: uppercase;
+    font-size: 3rem;
+    font-weight: 300;
+    color: rgb(172, 172, 172);
+}
+
+.errorHandler .head {
+    width: 200px;
+    height: 200px;
+    border: 1px solid rgb(172, 172, 172);
+    border-radius: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    animation: moveHead 5s linear 0s infinite alternate;
+}
+
+.errorHandler .eyes {
+    padding-top: 20px;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.errorHandler .eye {
+    border: 1px solid rgb(172, 172, 172);
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(172, 172, 172);
+    position: relative;
+}
+
+.errorHandler .eyebrow {
+    width: 60px;
+    height: 50px;
+    border: none;
+    border-top: 5px solid rgb(172, 172, 172);
+    position: absolute;
+    top: -15px;
+    left: -5px;
+    border-radius: 100%;
+}
+
+.errorHandler .lips {
+    border: 7px solid rgb(172, 172, 172);
+    width: 100px;
+    height: 50px;
+    border-radius: 100%;
+    border-bottom: transparent;
+    border-right: transparent;
+    border-left: transparent;
+}
+
+@keyframes moveHead {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+        transform: rotate(500deg);
+    }
+}

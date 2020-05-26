@@ -18,7 +18,8 @@ const express = require( "express" ),
     localsInit = require( "./middleware/localsInit" ),
     removeFiles = require( "./utilities/removeFiles" ),
     indexRoutes = require( "./routes" ),
-    tournamentRoutes = require( "./routes/tournaments/tournaments" );
+    tournamentRoutes = require( "./routes/tournaments/tournaments" ),
+    wrongRoutes = require( "./routes/wrongRoutes" );
 
 
 // settings
@@ -51,6 +52,7 @@ app.use( checkIfTournamentEnded );
 //add routes
 app.use( indexRoutes );
 app.use( tournamentRoutes );
+app.use( wrongRoutes );
 
 
 app.listen(3000, () => {

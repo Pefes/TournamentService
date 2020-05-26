@@ -5,7 +5,8 @@ const express = require( "express" ),
     upload = multer({ dest: "./uploads/temp" }),
     move = require( "../../utilities/moveFiles" ),
     getAllFiles = require( "../../utilities/getAllFiles" ),
-    { isLoggedIn, isNotLoggedIn } = require( "../../utilities/passportUtilities" ),
+    removeFiles = require( "../../utilities/removeFiles" ),
+    { isLoggedIn, isNotLoggedIn, isTournamentOwner } = require( "../../utilities/passportUtilities" ),
     tournamentInputValidation = require( "../../utilities/tournamentInputValidation" );
 
 
@@ -147,6 +148,47 @@ router.post("/tournaments", isLoggedIn, upload.any( "images" ), async ( req, res
     } else {
         req.flash( "error", validationResponse.errorMessage );
         res.render( "./tournaments/new.ejs", { previousForm: req.body } );
+    }
+});
+
+
+// get edit form
+router.get("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, async ( req, res ) => {
+    const tournament = await db.Tournament.findOne({ where: { id: req.params.tournamentId }, raw: true });
+
+    res.render( "./tournaments/edit.ejs", { oldValues: tournament } );
+});
+
+
+// edit tournament
+router.post("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, upload.any( "images" ), async ( req, res ) => {
+    try {
+        const validationResponse = tournamentInputValidation( req.body, req.files );
+        if ( validationResponse.validated ) {
+            await db.Tournament.update({
+                name: req.body.name,
+                branch: req.body.branch,
+                startDate: req.body.startDate,
+                maxSize: req.body.maxSize,
+                deadlineDate: req.body.deadlineDate
+            }, { where: { id: req.params.tournamentId } });
+
+            removeFiles( "public/images/tournaments/" + req.params.tournamentId + "/" );
+            req.files.forEach(( file, index ) => {
+                if ( index === 0 )
+                    move( file.path, "public/images/tournaments/" + req.params.tournamentId + "/avatar/", file.filename );
+                else
+                    move( file.path, "public/images/tournaments/" + req.params.tournamentId + "/sponsors/", file.filename );
+            });
+
+            res.redirect( "/tournaments/" + req.params.tournamentId );
+        } else {
+            req.flash( "error", validationResponse.errorMessage );
+            res.redirect( "/tournaments/" + tournamentId + "/edit" );
+        }
+    } catch ( error ) {
+        console.log( "Error occured: " + error );
+        res.render( "./index/errorHandler.ejs" );
     }
 });
 

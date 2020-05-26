@@ -46,6 +46,8 @@ const tournamentInputValidation = ( form, formFiles ) => {
         return { validated: false, errorMessage: "Tournament's deadline date is required!" };
     else if ( !datetimeRegEx.test( form.deadlineDate ) )
         return { validated: false, errorMessage: "Tournament's deadline date is invalid! Must be like \"yyyy-mm-dd hh:mm\"" };
+    else if ( new Date( form.deadlineDate ) < Date.now() )
+        return { validated: false, errorMessage: "Deadline date can't be from the past!" };
 
     if ( new Date( form.startDate ) < new Date( form.deadlineDate ) )
         return { validated: false, errorMessage: "Tournament's deadline date can't be later than start date!" };

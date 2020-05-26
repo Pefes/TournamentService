@@ -3,7 +3,8 @@ const seed = ( User, Tournament, Participation, Duel ) => {
         name: "pefes",
         surname: "pefesowsky",
         email: "w@w",
-        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy"
+        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
+        active: 1
     }, {
         name: "Andrzej",
         surname: "Andrzejewski",

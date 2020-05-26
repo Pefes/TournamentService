@@ -16,6 +16,29 @@
     position: relative;
 }
 
+.tournamentShowMain .editButton {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: 1px solid white;
+    padding: 5px 7.5px;
+    background-color: rgb(54, 52, 52);
+    color: white;
+    z-index: 50;
+    font-family: "Balsamiq Sans";
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: color 0.25s linear, background-color 0.25s linear, border 0.25s linear;
+    text-decoration: none;
+}
+
+.tournamentShowMain .editButton:hover {
+    border: 1px solid rgb(54, 52, 52);
+    background-color: white;
+    color: rgb(54, 52, 52);
+}
+
 .tournamentShowMain section .tournamentInfoSection {
     display: flex;
     align-items: center;
