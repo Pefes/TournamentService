@@ -21,10 +21,10 @@ router.get("/register", isNotLoggedIn, ( req, res ) => {
 
 
 router.post("/register", isNotLoggedIn, async ( req, res ) => {
-    const validationResponse = await userInputValidation( req.body );
+    try {
+        const validationResponse = await userInputValidation( req.body );
 
-    if ( validationResponse.validated ) {
-        try {
+        if ( validationResponse.validated ) {
             const hashedPassword = await bcrypt.hash( req.body.password, 10 );
     
             const createdUser = await db.User.create({
@@ -33,16 +33,18 @@ router.post("/register", isNotLoggedIn, async ( req, res ) => {
             })
     
             sendEmail.verification( req.body.email, req.body.name, createdUser.id );
+
+            req.flash( "success", "Successfully signed up! Now you need to activate your account!" );
             res.redirect( "/login" );
+        } else {
+            req.flash( "error", validationResponse.errorMessage );
+            res.render( "./index/register.ejs", { previousForm: req.body } );
         }
-        catch ( error ) {
-            console.log( "Error occured: " + error );
-            res.render( "./index/errorHandler.ejs" );
-        }    
-    } else {
-        req.flash( "error", validationResponse.errorMessage );
-        res.render( "./index/register.ejs", { previousForm: req.body } );
-    }
+    } catch ( error ) {
+        console.log( "Error occured: " + error );
+        req.flash( "error", "Something went wrong..." );
+        res.render( "./index/register.ejs" );
+    }    
 });
 
 
@@ -54,13 +56,14 @@ router.get("/verify/:key", async ( req, res ) => {
             db.User.update({ active: 1 }, { where: { id: verification.userId } });
             db.VerificationKey.destroy({ where: { userId: verification.userId } });
 
+            req.flash( "success", "Account activation done!" )
             res.render( "./index/login.ejs" );
         } else {
             res.render( "./index/errorHandler.ejs" );
         }
     } catch ( error ) {
         console.log( "Error occured: " + error );
-        res.redirect( "/login" );
+        res.render( "./index/errorHandler.ejs" );
     }
 });
 
@@ -85,7 +88,8 @@ router.get("/resetPassword/:key", async ( req, res ) => {
             res.render( "./index/errorHandler.ejs" );
         }
     } catch ( error ) {
-        res.redirect( "/login" );
+        console.log( "Error occured: " + error );
+        res.render( "./index/errorHandler.ejs" );
     }
 });
 
@@ -101,10 +105,11 @@ router.post("/resetPassword/:key/user/:userId", async ( req, res ) => {
                 const hashedPassword = await bcrypt.hash( req.body.newPassword, 10 );
                 await db.User.update({ password: hashedPassword }, { where: { id: resetPasswordKey.userId } });
     
+                req.flash( "success", "Successfully changed password!" );
                 res.redirect( "/login" );
             } else {
                 console.log( "Error occured: wrong key!" );
-                res.redirect( "/login" );
+                res.render( "./index/errorHandler.ejs" );
             }
         } else {
             req.flash( "error", validationResponse.errorMessage );
@@ -112,7 +117,7 @@ router.post("/resetPassword/:key/user/:userId", async ( req, res ) => {
         }
     } catch ( error ) {
         console.log( "Error occured: " + error );
-        res.redirect( "/login" );
+        res.render( "./index/errorHandler.ejs" );
     }
 });
 
@@ -124,6 +129,7 @@ router.get("/login", isNotLoggedIn, ( req, res ) => {
 
 router.post("/login", isNotLoggedIn, isActiveAccount, passport.authenticate("local", { 
     successRedirect: "/", 
+    successFlash: true,
     failureRedirect: "/login", 
     failureFlash: true 
 }));

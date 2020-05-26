@@ -1,4 +1,5 @@
 const datetimeRegEx = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}/;
+const whiteSpaceOnly = /^\s*$/;
 
 const isNumber = ( variable ) => { 
     return !isNaN( parseFloat( variable ) ) && !isNaN( variable - 0 ) ;
@@ -22,11 +23,15 @@ const tournamentInputValidation = ( form, formFiles ) => {
         return { validated: false, errorMessage: "Tournament's name is required!" };
     else if ( form.name.length > 100 )
         return { validated: false, errorMessage: "Tournament's name is too long! (max 100 characters)" };
+    else if ( whiteSpaceOnly.test( form.name ) )
+        return { validated: false, errorMessage: "Tournament's name can't contain only white spaces!" };
 
     if ( form.branch.length === 0 )
         return { validated: false, errorMessage: "Tournament's branch is required!" };
     else if ( form.branch.length > 100 )
         return { validated: false, errorMessage: "Tournament's branch is too long! (max 100 characters)" };
+    else if ( whiteSpaceOnly.test( form.name ) )
+        return { validated: false, errorMessage: "Tournament's name can't contain only white spaces!" };
 
     if ( form.startDate.length === 0 )
         return { validated: false, errorMessage: "Tournament's start date is required!" };

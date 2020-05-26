@@ -66,7 +66,9 @@
             <div class="mobileDevContainer"></div>
             
             <% if ( messages.error ) { %>
-                <h1><%= messages.error %></h1>
+                <p class="error"><%= messages.error %></p>
+            <% } else if ( messages.success ) { %>
+                <p class="success"><%= messages.success %></p>
             <% } %>
         </header>
         <main>

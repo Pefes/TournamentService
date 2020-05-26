@@ -8,6 +8,7 @@ body, html {
     margin: 0;
     background-color: transparent;
     overflow: auto;
+    overflow-x: hidden;
 }
 
 body {
@@ -55,6 +56,36 @@ header {
     align-items: center;
     flex-direction: column;
     z-index: 110;
+}
+
+.error {
+    border: 1px solid rgb(255, 86, 86);
+    background-color: rgb(252, 177, 177);
+    color: rgb(128, 0, 0);
+    font-size: 1.1rem;
+    padding: 5px 15px;
+    border-radius: 25px;
+    width: 70vw;
+    min-width: 70vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.success {
+    border: 1px solid rgb(81, 172, 58);
+    background-color: rgb(193, 252, 177);
+    color: rgb(0, 100, 8);
+    font-size: 1.1rem;
+    padding: 5px 15px;
+    border-radius: 25px;
+    width: 70vw;
+    min-width: 70vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
 }
 
 nav {
@@ -234,7 +265,7 @@ nav {
 
 .loginPopUp {
     z-index: 120;
-    position: absolute;
+    position: fixed;
     width: 75px;
     height: 75px;
     border-bottom-right-radius: 100%;
@@ -368,6 +399,14 @@ nav {
 
     .mobileDevContainer {
         right: 0;
+    }
+
+    .error {
+        width: 100%;
+    }
+
+    .success {
+        width: 100%;
     }
 }
 

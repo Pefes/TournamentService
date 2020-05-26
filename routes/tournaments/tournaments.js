@@ -123,16 +123,16 @@ router.get("/tournaments/signedUp/page/:currentPage", async ( req, res ) => {
 
 // create new tournament
 router.post("/tournaments", isLoggedIn, upload.any( "images" ), async ( req, res ) => {
-    const validationResponse = tournamentInputValidation( req.body, req.files );
+    try {
+        const validationResponse = tournamentInputValidation( req.body, req.files );
 
-    if ( validationResponse.validated ) {
-        try {
+        if ( validationResponse.validated ) {
             const tournament = await db.Tournament.create({
                 ...req.body,
                 ownerId: req.user.id,
                 currentSize: 0
             })
-           
+            
             req.files.forEach(( file, index ) => {
                 if ( index === 0 )
                     move( file.path, "public/images/tournaments/" + tournament.id + "/avatar/", file.filename );
@@ -140,13 +140,15 @@ router.post("/tournaments", isLoggedIn, upload.any( "images" ), async ( req, res
                     move( file.path, "public/images/tournaments/" + tournament.id + "/sponsors/", file.filename );
             });
         
+            req.flash( "success", "Tournament successfully created!" );
             res.redirect( "/tournaments/page/1" );
-        } catch ( error ) {
-            console.log( "Error occured: " + error );
-            res.render( "./index/errorHandler.ejs" );
+        } else {
+            req.flash( "error", validationResponse.errorMessage );
+            res.render( "./tournaments/new.ejs", { previousForm: req.body } );
         }
-    } else {
-        req.flash( "error", validationResponse.errorMessage );
+    } catch ( error ) {
+        console.log( "Error occured: " + error );
+        req.flash( "error", "Something went wrong..." );
         res.render( "./tournaments/new.ejs", { previousForm: req.body } );
     }
 });
@@ -181,6 +183,7 @@ router.post("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, up
                     move( file.path, "public/images/tournaments/" + req.params.tournamentId + "/sponsors/", file.filename );
             });
 
+            req.flash( "success", "Tournament successfully edited!" );
             res.redirect( "/tournaments/" + req.params.tournamentId );
         } else {
             req.flash( "error", validationResponse.errorMessage );
@@ -188,7 +191,8 @@ router.post("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, up
         }
     } catch ( error ) {
         console.log( "Error occured: " + error );
-        res.render( "./index/errorHandler.ejs" );
+        req.flash( "error", "Something went wrong..." );
+        res.redirect( "/tournaments/" + tournamentId + "/edit" );
     }
 });
 
@@ -212,12 +216,12 @@ router.get("/tournaments/:id", async ( req, res ) => {
             images.forEach(image => {
                 sponsors.push( "/images/tournaments/" + tournament.id + "/sponsors/" + image );
             });
-        } catch ( error ) {  }
+        } catch ( error ) { console.log( "Error occured: " + error ); }
 
         try {
             const avatarImage = getAllFiles( "public/images/tournaments/" + tournament.id + "/avatar/" )[0]; 
             avatar = "/images/tournaments/" + tournament.id + "/avatar/" + avatarImage;
-        } catch ( error ) {  }
+        } catch ( error ) { console.log( "Error occured: " + error ); }
         
         tournament.startDate = tournament.startDate.replace( "T", " " );
         tournament.deadlineDate = tournament.deadlineDate.replace( "T", " " );
@@ -225,7 +229,8 @@ router.get("/tournaments/:id", async ( req, res ) => {
         res.render( "./tournaments/show.ejs", { tournament: { ...tournament, avatar: avatar }, duels: duels, sponsors: sponsors } );
     } catch ( error ) {
         console.log( "Error occured: " + error );
-        res.render( "./index/errorHandler.ejs" );
+        req.flash( "error", "Something went wrong..." );
+        res.redirect( "/tournaments" );
     }
 });
 
@@ -242,12 +247,14 @@ router.post("/tournaments/:id/signup", isLoggedIn, async ( req, res ) => {
         }
 
         await t.commit();
+        req.flash( "success", "You have successfully signed up for the tournament!" );
         res.redirect( "/tournaments/" + req.params.id );
     }
     catch ( error ) {
         await t.rollback();
         console.log( "Error occured: " + error );
-        res.render( "./index/errorHandler.ejs" );
+        req.flash( "error", "Something went wrong..." );
+        res.redirect( "/tournaments/" + req.params.id );
     }
 });
 
@@ -262,10 +269,12 @@ router.post("/tournaments/:tournamentId/duels/:duelId/pickWinner/:winnerId", isL
         else 
             await db.Duel.update({ secondOpponentReply: req.params.winnerId }, { where: { id: duel.id } });
     
+        req.flash( "success", "You picked a winner!" );
         res.redirect( "/tournaments/" + req.params.tournamentId );
     } catch ( error ) {
         console.log( "Error occured: " + error );
-        res.render( "./index/errorHandler.ejs" );
+        req.flash( "error", "Something went wrong..." );
+        res.redirect( "/tournaments/" + req.params.tournamentId );
     }
 });
 

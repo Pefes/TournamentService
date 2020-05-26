@@ -68,6 +68,8 @@
     display: flex;
     justify-content: flex-end;
     width: 70%;
+    overflow: hidden;
+    max-width: 275px;
 }
 
 .tournamentsList .articleMore {
@@ -144,6 +146,30 @@
     align-items: center;
     justify-content: center;
     flex-basis: 40%;
+}
+
+.tournamentsList article:nth-child(2n + 1) {
+    position: relative;
+    left: -200%;
+    opacity: 0;
+    transition: left 0.75s ease-out, opacity 1s linear;
+}
+
+.tournamentsList article:nth-child(2n) {
+    position: relative;
+    right: -200%;
+    opacity: 0;
+    transition: right 0.75s ease-out, opacity 1s linear;
+}
+
+.tournamentsList article.tournamentsListArticleVisibleLeft {
+    left: 0;
+    opacity: 1;
+}
+
+.tournamentsList article.tournamentsListArticleVisibleRight {
+    right: 0;
+    opacity: 1;
 }
 
 @media (max-width: 450px) {

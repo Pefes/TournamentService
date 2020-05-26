@@ -22,7 +22,15 @@ main {
     font-size: 16px;
     max-width: 500px;
     max-height: 400px;
-    
+    transform: scale(0);
+    bottom: -200%;
+    transition: transform 0.35s ease-out, bottom 0.35s ease-out;
+    position: relative;
+}
+
+.inputFormVisible {
+    transform: scale(1);
+    bottom: 0
 }
 
 .inputForm h1 {

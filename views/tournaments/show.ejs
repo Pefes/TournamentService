@@ -11,7 +11,9 @@
 
 <article class="tournamentShowMain">
     <section class="tournamentInfo">
-        <a href="/tournaments/<%= tournament.id %>/edit" class="editButton">Edit tournament</a>
+        <% if ( currentUser && currentUser.id === tournament.ownerId ) { %>
+            <a href="/tournaments/<%= tournament.id %>/edit" class="editButton">Edit tournament</a>
+        <% } %>
         <div class="tournamentShowImage">
             <img src="<% if ( tournament.avatar ) { %>
                             <%= tournament.avatar %>
