@@ -6,6 +6,7 @@ const express = require( "express" ),
     move = require( "../../utilities/moveFiles" ),
     getAllFiles = require( "../../utilities/getAllFiles" ),
     removeFiles = require( "../../utilities/removeFiles" ),
+    Sequelize = require( "sequelize" ),
     { isLoggedIn, isNotLoggedIn, isTournamentOwner } = require( "../../utilities/passportUtilities" ),
     tournamentInputValidation = require( "../../utilities/tournamentInputValidation" );
 
@@ -164,6 +165,8 @@ router.get("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, asy
 
 // edit tournament
 router.post("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, upload.any( "images" ), async ( req, res ) => {
+    const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
+
     try {
         const validationResponse = tournamentInputValidation( req.body, req.files );
         if ( validationResponse.validated ) {
@@ -173,7 +176,7 @@ router.post("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, up
                 startDate: req.body.startDate,
                 maxSize: req.body.maxSize,
                 deadlineDate: req.body.deadlineDate
-            }, { where: { id: req.params.tournamentId } });
+            }, { where: { id: req.params.tournamentId } }, { transaction: t });
 
             removeFiles( "public/images/tournaments/" + req.params.tournamentId + "/" );
             req.files.forEach(( file, index ) => {
@@ -183,13 +186,16 @@ router.post("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, up
                     move( file.path, "public/images/tournaments/" + req.params.tournamentId + "/sponsors/", file.filename );
             });
 
+            await t.commit();
             req.flash( "success", "Tournament successfully edited!" );
             res.redirect( "/tournaments/" + req.params.tournamentId );
         } else {
+            await t.rollback();
             req.flash( "error", validationResponse.errorMessage );
             res.redirect( "/tournaments/" + req.params.tournamentId + "/edit" );
         }
     } catch ( error ) {
+        await t.rollback();
         console.log( "Error occured: " + error );
         req.flash( "error", "Something went wrong..." );
         res.redirect( "/tournaments/" + req.params.tournamentId + "/edit" );
@@ -254,18 +260,23 @@ router.get("/tournaments/:id", async ( req, res ) => {
 
 // sign up for tournament
 router.post("/tournaments/:id/signup", isLoggedIn, async ( req, res ) => {
+    const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
+
     try {
-        const t = await db.sequelize.transaction();
         const { currentSize, maxSize, status } = await db.Tournament.findOne({ where: { id: req.params.id }, raw: true }, { transaction: t });
         
         if ( currentSize < maxSize  && status === "open" ) {
             await db.Participation.create({ tournamentId: req.params.id, userId: req.user.id, ladderRank: Math.random() }, { transaction: t });
             await db.Tournament.update({ currentSize: currentSize + 1 }, { where: { id: req.params.id } });
-        }
 
-        await t.commit();
-        req.flash( "success", "You have successfully signed up for the tournament!" );
-        res.redirect( "/tournaments/" + req.params.id );
+            await t.commit();
+            req.flash( "success", "You have successfully signed up for the tournament!" );
+            res.redirect( "/tournaments/" + req.params.id );
+        } else {
+            req.flash( "error", "All free places are occupied!" );
+            await t.rollback();
+            res.redirect( "/tournaments/" + req.params.id );
+        }
     }
     catch ( error ) {
         await t.rollback();

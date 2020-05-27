@@ -8,11 +8,11 @@ const assignParticipantsToDuels = require( "./assignParticipantsToDuels" ),
     createDuels = require( "./createDuels" );
 
 const startScheduler = () => {
-    cron.schedule( "*/5 * * * * *", checkTournamentStatus ).start();
-    cron.schedule( "*/5 * * * * *", createDuels ).start();
-    cron.schedule( "*/5 * * * * *", assignParticipantsToDuels ).start();
+    cron.schedule( "*/10 * * * * *", checkTournamentStatus ).start();
+    cron.schedule( "*/10 * * * * *", createDuels ).start();
+    cron.schedule( "*/10 * * * * *", assignParticipantsToDuels ).start();
     cron.schedule( "*/5 * * * * *", checkIfRoundEnded ).start();
-    cron.schedule( "*/5 * * * * *", checkDuelStatus ).start();
+    cron.schedule( "*/3 * * * * *", checkDuelStatus ).start();
     cron.schedule( "*/5 * * * * *", checkIfTournamentEnded ).start();
 }
 

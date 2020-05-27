@@ -10,12 +10,6 @@ const express = require( "express" ),
     flash = require( "express-flash" ),
     session = require( "express-session" ),
     scheduler = require( "./database/schedule/scheduler" ),
-    checkTournamentStatus = require( "./middleware/checkTournamentStatus" ),
-    createDuels = require( "./middleware/createDuels" ),
-    assignParticipantsToDuels = require( "./middleware/assignParticipantsToDuels.js" ),
-    checkIfRoundEnded = require( "./middleware/checkIfRoundEnded" ),
-    checkDuelStatus = require( "./middleware/checkDuelStatus" ),
-    checkIfTournamentEnded = require( "./middleware/checkIfTournamentEnded" ),
     localsInit = require( "./middleware/localsInit" ),
     removeFiles = require( "./utilities/removeFiles" ),
     indexRoutes = require( "./routes" ),
@@ -43,12 +37,6 @@ scheduler();
 
 // custom middleware
 app.use( localsInit );
-app.use( checkTournamentStatus );
-app.use( createDuels );
-app.use( assignParticipantsToDuels );
-app.use( checkIfRoundEnded );
-app.use( checkDuelStatus );
-app.use( checkIfTournamentEnded );
 
 
 //add routes

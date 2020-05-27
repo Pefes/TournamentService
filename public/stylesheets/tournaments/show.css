@@ -127,6 +127,10 @@
     color: white;
 }
 
+.tournamentShowMain .tournamentShowSignUp form input:focus {
+    outline: none;
+}
+
 .tournamentShowImage {
     position: absolute;
     top: 0;
