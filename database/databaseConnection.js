@@ -28,6 +28,7 @@ const sequelize = new Sequelize(
     }
 });
 
+
 // import models
 const userModel = require( "../models/user" ),
     tournamentModel = require( "../models/tournament" ),

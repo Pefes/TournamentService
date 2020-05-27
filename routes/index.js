@@ -128,7 +128,7 @@ router.get("/login", isNotLoggedIn, ( req, res ) => {
 
 
 router.post("/login", isNotLoggedIn, isActiveAccount, passport.authenticate("local", { 
-    successRedirect: "/", 
+    successRedirect: "/tournaments/page/1", 
     successFlash: true,
     failureRedirect: "/login", 
     failureFlash: true 

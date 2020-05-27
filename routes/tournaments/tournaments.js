@@ -7,7 +7,9 @@ const express = require( "express" ),
     getAllFiles = require( "../../utilities/getAllFiles" ),
     removeFiles = require( "../../utilities/removeFiles" ),
     Sequelize = require( "sequelize" ),
-    { isLoggedIn, isNotLoggedIn, isTournamentOwner } = require( "../../utilities/passportUtilities" ),
+    { isLoggedIn, isNotLoggedIn } = require( "../../utilities/passportUtilities" ),
+    isTournamentOwner = require( "../../middleware/isTournamentOwner" ),
+    isTournamentOpen = require( "../../middleware/isTournamentOpen" ),
     tournamentInputValidation = require( "../../utilities/tournamentInputValidation" );
 
 
@@ -156,7 +158,7 @@ router.post("/tournaments", isLoggedIn, upload.any( "images" ), async ( req, res
 
 
 // get edit form
-router.get("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, async ( req, res ) => {
+router.get("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, isTournamentOpen, async ( req, res ) => {
     const tournament = await db.Tournament.findOne({ where: { id: req.params.tournamentId }, raw: true });
 
     res.render( "./tournaments/edit.ejs", { oldValues: tournament } );
@@ -164,7 +166,7 @@ router.get("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, asy
 
 
 // edit tournament
-router.post("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, upload.any( "images" ), async ( req, res ) => {
+router.post("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, isTournamentOpen, upload.any( "images" ), async ( req, res ) => {
     const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
 
     try {
