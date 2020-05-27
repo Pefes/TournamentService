@@ -12,7 +12,7 @@ const { DATABASE_NAME,
 
 
 //set config
-const sequelize;
+let sequelize;
 
 if ( process.env.NODE_ENV !== "PRODUCTION" ) {
     sequelize = new Sequelize(
