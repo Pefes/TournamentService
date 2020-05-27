@@ -12,29 +12,27 @@ const { DATABASE_NAME,
 
 
 //set config
-const sequelizeLocal = new Sequelize(
-    DATABASE_NAME, 
-    USERNAME, 
-    PASSWORD, 
-    {
-        host: HOST,
-        dialect: DIALECT,
-        logging: false,
-        pool: {
-            max: MAX,
-            min: MIN,
-            acquire: ACQUIRE,
-            idle: IDLE
-    }
-});
+const sequelize;
 
-
-const sequelizeRemote = new Sequelize( process.env.DATABASE_URL );
-
-if ( process.env.NODE_ENV !== "PRODUCTION" )
-    const sequelize = sequelizeLocal;
-else
-    const sequelize = sequelizeRemote;
+if ( process.env.NODE_ENV !== "PRODUCTION" ) {
+    sequelize = new Sequelize(
+        DATABASE_NAME, 
+        USERNAME, 
+        PASSWORD, 
+        {
+            host: HOST,
+            dialect: DIALECT,
+            logging: false,
+            pool: {
+                max: MAX,
+                min: MIN,
+                acquire: ACQUIRE,
+                idle: IDLE
+        }
+    });
+} else {
+    sequelize = new Sequelize( process.env.DATABASE_URL );
+}
 
 
 // import models
