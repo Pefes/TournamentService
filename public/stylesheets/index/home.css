@@ -6,6 +6,10 @@ footer {
     display: none;
 }
 
+.loginPopUp {
+    display: none;
+}
+
 .home, main, body {
     overflow-y: hidden;
     width: 100%;

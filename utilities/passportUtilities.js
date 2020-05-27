@@ -5,12 +5,15 @@ const isLoggedIn = ( req, res, next ) => {
     if ( req.isAuthenticated() )
         return next();
     else
+        req.flash( "error", "First, you need to log in!" )
         res.redirect( "/login" );
 };
 
 const isNotLoggedIn = ( req, res, next ) => {
-    if ( req.isAuthenticated() )
-        res.redirect( "/" );
+    if ( req.isAuthenticated() ) {
+        req.flash( "error", "You are already logged in!" )
+        res.redirect( "/tournaments/page/1" );
+    }
     else
         next();
 };
