@@ -12,7 +12,7 @@ const { DATABASE_NAME,
 
 
 //set config
-/*const sequelize = new Sequelize(
+const sequelizeLocal = new Sequelize(
     DATABASE_NAME, 
     USERNAME, 
     PASSWORD, 
@@ -26,21 +26,15 @@ const { DATABASE_NAME,
             acquire: ACQUIRE,
             idle: IDLE
     }
-});*/
+});
 
-/*const sequelize = new Sequelize( "sql7343695", "sql7343695", "ShZm4KbiDH", {
-    host: "sql7.freemysqlhosting.net",
-    dialect: "mysql",
-    logging: false,
-    pool: {
-        max: 10000,
-        min: 0,
-        acquire: 10000000,
-        idle: 100000
-    }
-});*/
 
-const sequelize = new Sequelize( process.env.DATABASE_URL );
+const sequelizeRemote = new Sequelize( process.env.DATABASE_URL );
+
+if ( process.env.NODE_ENV !== "PRODUCTION" )
+    const sequelize = sequelizeLocal;
+else
+    const sequelize = sequelizeRemote;
 
 
 // import models
@@ -62,7 +56,8 @@ const User = userModel( sequelize, Sequelize ),
 // database connection
 sequelize.sync({ force: true })
 .then(() => {
-    seedDb( User, Tournament, Participation, Duel );
+    if ( process.env.NODE_ENV !== "PRODUCTION" )
+        seedDb( User, Tournament, Participation, Duel );
     console.log( "Database & tables created here!" );
 });
 
