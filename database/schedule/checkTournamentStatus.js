@@ -6,13 +6,13 @@ const checkTournamentStatus = async () => {
     const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
 
     try {
-        const tournaments = await db.Tournament.findAll({ where: { status: "open" }, raw: true }, { transaction: t });
+        const tournaments = await db.Tournament.findAll({ where: { status: "open" }, raw: true, transaction: t });
 
-        tournaments.forEach(async tournament => {
+        for ( tournament of tournaments ) {
             if ( new Date(tournament.startDate) - new Date() < 0 ) {
-                db.Toursnament.update({ status: "closed" }, { where: { id: tournament.id } });
+                await db.Tournament.update({ status: "closed" }, { where: { id: tournament.id }, transaction: t });
             }
-        });
+        }
 
         await t.commit();
     }

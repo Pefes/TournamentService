@@ -11,25 +11,25 @@ const checkDuelStatus = async () => {
             status: "open", 
             firstOpponentReply: { [Op.ne]: null },
             secondOpponentReply: { [Op.ne]: null }
-        }}, { transaction: t });
+        }, transaction: t, raw: true });
     
         for ( duel of duels ) {
             if ( duel.firstOpponentReply === duel.secondOpponentReply ) {
                 await db.Duel.update({
                     winner: duel.secondOpponentReply,
                     status: "closed"
-                }, { where: { id: duel.id } }, { transaction: t });
+                }, { where: { id: duel.id }, transaction: t });
     
                 if ( duel.firstOpponent === duel.firstOpponentReply )
-                    await db.Participation.update({ status: "out" }, { where: { userId: duel.secondOpponent } }, { transaction: t });
+                    await db.Participation.update({ status: "out" }, { where: { userId: duel.secondOpponent }, transaction: t });
                 else
-                    await db.Participation.update({ status: "out" }, { where: { userId: duel.firstOpponent } }, { transaction: t });
+                    await db.Participation.update({ status: "out" }, { where: { userId: duel.firstOpponent }, transaction: t });
             }
             else {
                 await db.Duel.update({
                     firstOpponentReply: null,
                     secondOpponentReply: null
-                }, { where: { id: duel.id } }, { transaction: t });
+                }, { where: { id: duel.id }, transaction: t });
             }
         }
 

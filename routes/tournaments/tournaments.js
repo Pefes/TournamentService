@@ -178,7 +178,7 @@ router.post("/tournaments/:tournamentId/edit", isLoggedIn, isTournamentOwner, is
                 startDate: req.body.startDate,
                 maxSize: req.body.maxSize,
                 deadlineDate: req.body.deadlineDate
-            }, { where: { id: req.params.tournamentId } }, { transaction: t });
+            }, { where: { id: req.params.tournamentId }, transaction: t });
 
             removeFiles( "public/images/tournaments/" + req.params.tournamentId + "/" );
             req.files.forEach(( file, index ) => {
@@ -265,13 +265,13 @@ router.post("/tournaments/:id/signup", isLoggedIn, async ( req, res ) => {
     const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
 
     try {
-        const { currentSize, maxSize, status } = await db.Tournament.findOne({ where: { id: req.params.id }, raw: true }, { transaction: t });
-        const participationInTournament = await db.Participation.findOne({ where: { tournamentId: req.params.id, userId: req.user.id }, raw: true }, { transaction: t });
+        const { currentSize, maxSize, status } = await db.Tournament.findOne({ where: { id: req.params.id }, raw: true, transaction: t });
+        const participationInTournament = await db.Participation.findOne({ where: { tournamentId: req.params.id, userId: req.user.id }, raw: true, transaction: t });
 
         if ( !participationInTournament ) {
             if ( currentSize < maxSize  && status === "open" ) {
-                await db.Participation.create({ tournamentId: req.params.id, userId: req.user.id, ladderRank: Math.random() }, { transaction: t });
-                await db.Tournament.update({ currentSize: currentSize + 1 }, { where: { id: req.params.id } });
+                await db.Participation.create({ tournamentId: req.params.id, userId: req.user.id, ladderRank: Math.random(), transaction: t });
+                await db.Tournament.update({ currentSize: currentSize + 1 }, { where: { id: req.params.id }, transaction: t });
     
                 await t.commit();
                 req.flash( "success", "You have successfully signed up for the tournament!" );

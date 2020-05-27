@@ -6,7 +6,7 @@ const createDuels = async () => {
     const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
 
     try {
-        const tournaments = await db.Tournament.findAll({ where: { status: "closed" }, raw: true }, { transaction: t });
+        const tournaments = await db.Tournament.findAll({ where: { status: "closed" }, raw: true, transaction: t });
 
         for ( tournament of tournaments ) {
             const currentSize = tournament.currentSize;
@@ -16,14 +16,14 @@ const createDuels = async () => {
                 stage += 1;
     
                 for (let j = 0; j < i; j++ ) {
-                    db.Duel.create({
+                    await db.Duel.create({
                         tournamentId: tournament.id,
                         stage: stage
                     }, { transaction: t })
                 }
             }
     
-            await db.Tournament.update({ status: "readyForDuels", maxStage: stage, currentStage: 1 }, { where: { id: tournament.id } }, { transaction: t });
+            await db.Tournament.update({ status: "readyForDuels", maxStage: stage, currentStage: 1 }, { where: { id: tournament.id }, transaction: t });
         }
 
         await t.commit();
