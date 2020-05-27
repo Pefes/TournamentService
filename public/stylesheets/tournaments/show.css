@@ -348,6 +348,7 @@
     margin: 0;
     padding: 5px;
     overflow-x: hidden;
+    max-width: 136px;
 }
 
 .tournamentShowLadder .tournamentColumn {
@@ -414,6 +415,8 @@
     padding: 5px 10px;
     border-right: 1px solid #aaa;
     white-space: nowrap;
+    overflow-x: hidden;
+    max-width: 136px;
 }
 
 .showWinner i {

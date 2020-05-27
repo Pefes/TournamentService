@@ -239,12 +239,12 @@ router.get("/tournaments/:id", async ( req, res ) => {
             images.forEach(image => {
                 sponsors.push( "/images/tournaments/" + tournament.id + "/sponsors/" + image );
             });
-        } catch ( error ) { console.log( "Error occured: " + error ); }
+        } catch ( error ) {  }
 
         try {
             const avatarImage = getAllFiles( "public/images/tournaments/" + tournament.id + "/avatar/" )[0]; 
             avatar = "/images/tournaments/" + tournament.id + "/avatar/" + avatarImage;
-        } catch ( error ) { console.log( "Error occured: " + error ); }
+        } catch ( error ) {  }
         
         tournament.startDate = tournament.startDate.replace( "T", " " );
         tournament.deadlineDate = tournament.deadlineDate.replace( "T", " " );
@@ -264,16 +264,23 @@ router.post("/tournaments/:id/signup", isLoggedIn, async ( req, res ) => {
 
     try {
         const { currentSize, maxSize, status } = await db.Tournament.findOne({ where: { id: req.params.id }, raw: true }, { transaction: t });
-        
-        if ( currentSize < maxSize  && status === "open" ) {
-            await db.Participation.create({ tournamentId: req.params.id, userId: req.user.id, ladderRank: Math.random() }, { transaction: t });
-            await db.Tournament.update({ currentSize: currentSize + 1 }, { where: { id: req.params.id } });
+        const participationInTournament = await db.Participation.findOne({ where: { tournamentId: req.params.id, userId: req.user.id }, raw: true }, { transaction: t });
 
-            await t.commit();
-            req.flash( "success", "You have successfully signed up for the tournament!" );
-            res.redirect( "/tournaments/" + req.params.id );
+        if ( !participationInTournament ) {
+            if ( currentSize < maxSize  && status === "open" ) {
+                await db.Participation.create({ tournamentId: req.params.id, userId: req.user.id, ladderRank: Math.random() }, { transaction: t });
+                await db.Tournament.update({ currentSize: currentSize + 1 }, { where: { id: req.params.id } });
+    
+                await t.commit();
+                req.flash( "success", "You have successfully signed up for the tournament!" );
+                res.redirect( "/tournaments/" + req.params.id );
+            } else {
+                req.flash( "error", "All free places are occupied!" );
+                await t.rollback();
+                res.redirect( "/tournaments/" + req.params.id );
+            }
         } else {
-            req.flash( "error", "All free places are occupied!" );
+            req.flash( "error", "You are already signed up!" );
             await t.rollback();
             res.redirect( "/tournaments/" + req.params.id );
         }
