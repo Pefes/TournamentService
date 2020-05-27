@@ -12,7 +12,7 @@ const { DATABASE_NAME,
 
 
 //set config
-const sequelize = new Sequelize(
+/*const sequelize = new Sequelize(
     DATABASE_NAME, 
     USERNAME, 
     PASSWORD, 
@@ -26,7 +26,7 @@ const sequelize = new Sequelize(
             acquire: ACQUIRE,
             idle: IDLE
     }
-});
+});*/
 
 /*const sequelize = new Sequelize( "sql7343695", "sql7343695", "ShZm4KbiDH", {
     host: "sql7.freemysqlhosting.net",
@@ -40,7 +40,7 @@ const sequelize = new Sequelize(
     }
 });*/
 
-//const sequelize = new Sequelize( process.env.DATABASE_URL );
+const sequelize = new Sequelize( process.env.DATABASE_URL );
 
 
 // import models
