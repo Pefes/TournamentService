@@ -9,32 +9,38 @@ const seed = ( User, Tournament, Participation, Duel ) => {
         name: "Andrzej",
         surname: "Andrzejewski",
         email: "t@t",
-        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy"
+        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
+        active: 1
     }, {
         name: "Adam",
         surname: "Kowalski",
         email: "r@r",
-        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy"
+        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
+        active: 1
     }, {
         name: "Paweł",
         surname: "Korobczyński",
         email: "e@e",
-        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy"
+        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
+        active: 1
     }, {
         name: "Paweł",
         surname: "Korobczyński",
         email: "pawel.korobczyński@student.put.poznan.pl",
-        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy"
+        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
+        active: 1
     }, {
         name: "Adam",
         surname: "Kowalski",
         email: "adam.kowalski@put.poznan.pl",
-        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy"
+        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
+        active: 1
     }, {
         name: "Andrzej",
         surname: "Andrzejewski",
         email: "andrzejos@gmail.com",
-        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy"
+        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
+        active: 1
     }]);
 
     Tournament.bulkCreate([{

@@ -29,7 +29,7 @@ const createDuels = async () => {
         await t.commit();
     } catch ( error ) {
         await t.rollback();
-        console.log( "Error occured: " + error );
+        console.log( "[createDuels] Error occured: " + error );
     }
 }
 

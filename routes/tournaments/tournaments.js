@@ -232,8 +232,11 @@ router.get("/tournaments/:id", async ( req, res ) => {
                 });
             }
 
-            if ( tournament.winnerId ) 
-                tournament.winnerName = await db.User.findOne({ where: { id: tournament.winnerId }, raw: true });
+            if ( tournament.winnerId ) {
+                const winner = await db.User.findOne({ where: { id: tournament.winnerId }, raw: true });
+                tournament.winnerName = winner.surname;
+            }
+                
         } catch ( error ) { console.log( "Error occured: " + error ); }
     
         try {

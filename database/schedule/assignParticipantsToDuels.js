@@ -30,7 +30,7 @@ const assignParticipantsToDuels = async () => {
             if ( isOdd && participations.length > 0) {
                 let randomIndex = getRandomIndex( 0, participations.length );
     
-                for ( duel of duels ) {
+                for ( let [index, duel] of duels.entries() ) {
                     if ( index === randomIndex ) {
                         firstOpponent = participations.pop();
                         await db.Duel.update({
@@ -60,7 +60,7 @@ const assignParticipantsToDuels = async () => {
                     await db.Duel.update({
                         firstOpponent: firstOpponent.userId,
                         secondOpponent: secondOpponent.userId
-                    }, { where: { id: duel.id }, transaction: t })
+                    }, { where: { id: duel.id }, transaction: t });
                 }
             }
     
@@ -70,7 +70,7 @@ const assignParticipantsToDuels = async () => {
         await t.commit();
     } catch ( error ) {
         await t.rollback();
-        console.log( "Error occured: " + error );
+        console.log( "[assignParticipantsToDuels] Error occured: " + error );
     }
 };
 

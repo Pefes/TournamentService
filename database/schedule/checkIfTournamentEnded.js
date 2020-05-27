@@ -16,7 +16,7 @@ const checkIfTournamentEnded = async () => {
         await t.commit();
     } catch ( error ) {
         await t.rollback();
-        console.log( "Error occured: " + error );
+        console.log( "[checkIfTournamentEnded] Error occured: " + error );
     }
 };
 

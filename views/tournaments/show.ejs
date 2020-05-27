@@ -64,7 +64,7 @@
             </form>
         </section>
     <% } %>
-    <% if( tournament.status !== "open" ) { %>
+    <% if( tournament.status !== "open" && tournament.status !== "closed" ) { %>
         <section class="tournamentShowResults">
             <h1>TOURNAMENT LADDER</h1>
             <div class="tournamentShowLadder">

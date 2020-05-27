@@ -18,7 +18,7 @@ const checkTournamentStatus = async () => {
     }
     catch ( error ) {
         await t.rollback();
-        console.log( "Error occured: " + error );
+        console.log( "[checkTournamentStatus] Error occured: " + error );
     }
 }
 
