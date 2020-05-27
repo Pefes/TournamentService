@@ -1,4 +1,4 @@
-const Sequelize = require( "Sequelize" );
+const Sequelize = require( "sequelize" );
 const seedDb = require( "./seed" );
 const { DATABASE_NAME, 
     USERNAME, 
