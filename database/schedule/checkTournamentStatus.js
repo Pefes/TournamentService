@@ -6,7 +6,7 @@ const checkTournamentStatus = async () => {
     const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
 
     try {
-        const tournaments = await db.Tournament.findAll({ where: { status: "open" }, raw: true, transaction: t });
+        const tournaments = await db.Tournament.findAll({ where: { status: "open" }, raw: true, transaction: t, lock: true });
 
         for ( tournament of tournaments ) {
             if ( new Date(tournament.startDate) - new Date() < 0 ) {
@@ -20,6 +20,8 @@ const checkTournamentStatus = async () => {
         await t.rollback();
         console.log( "[checkTournamentStatus] Error occured: " + error );
     }
+
+    console.log( "[checkTournamentStatus] Successfuly completed..." );
 }
 
 

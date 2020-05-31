@@ -11,7 +11,7 @@ const checkDuelStatus = async () => {
             status: "open", 
             firstOpponentReply: { [Op.ne]: null },
             secondOpponentReply: { [Op.ne]: null }
-        }, transaction: t, raw: true });
+        }, transaction: t, lock: true, raw: true });
     
         for ( duel of duels ) {
             if ( duel.firstOpponentReply === duel.secondOpponentReply ) {
@@ -38,6 +38,8 @@ const checkDuelStatus = async () => {
         await t.rollback();
         console.log( "[checkDuelStatus] Error occured: " + error );
     }
+
+    console.log( "[checkDuelStatus] Successfuly completed..." );
 };
 
 

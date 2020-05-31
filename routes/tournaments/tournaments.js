@@ -268,7 +268,7 @@ router.post("/tournaments/:id/signup", isLoggedIn, async ( req, res ) => {
     const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
 
     try {
-        const { currentSize, maxSize, status } = await db.Tournament.findOne({ where: { id: req.params.id }, raw: true, transaction: t });
+        const { currentSize, maxSize, status } = await db.Tournament.findOne({ where: { id: req.params.id }, raw: true, transaction: t, lock: true });
         const participationInTournament = await db.Participation.findOne({ where: { tournamentId: req.params.id, userId: req.user.id }, raw: true, transaction: t });
 
         if ( !participationInTournament ) {
@@ -301,17 +301,21 @@ router.post("/tournaments/:id/signup", isLoggedIn, async ( req, res ) => {
 
 // pick a winner in duel in tournament
 router.post("/tournaments/:tournamentId/duels/:duelId/pickWinner/:winnerId", isLoggedIn, async ( req, res ) => {
+    const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
+
     try {
-        const duel = await db.Duel.findOne({ where: { id: req.params.duelId, tournamentId: req.params.tournamentId }, raw: true });
+        const duel = await db.Duel.findOne({ where: { id: req.params.duelId, tournamentId: req.params.tournamentId }, transaction: t, lock: true, raw: true });
 
         if ( duel.firstOpponent === req.user.id ) 
-            await db.Duel.update({ firstOpponentReply: req.params.winnerId }, { where: { id: duel.id } });
+            await db.Duel.update({ firstOpponentReply: req.params.winnerId }, { where: { id: duel.id }, transaction: t });
         else 
-            await db.Duel.update({ secondOpponentReply: req.params.winnerId }, { where: { id: duel.id } });
+            await db.Duel.update({ secondOpponentReply: req.params.winnerId }, { where: { id: duel.id }, transaction: t });
     
+        await t.commit();
         req.flash( "success", "You picked a winner!" );
         res.redirect( "/tournaments/" + req.params.tournamentId );
     } catch ( error ) {
+        await t.rollback();
         console.log( "Error occured: " + error );
         req.flash( "error", "Something went wrong..." );
         res.redirect( "/tournaments/" + req.params.tournamentId );

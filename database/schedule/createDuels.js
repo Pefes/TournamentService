@@ -6,20 +6,22 @@ const createDuels = async () => {
     const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
 
     try {
-        const tournaments = await db.Tournament.findAll({ where: { status: "closed" }, raw: true, transaction: t });
+        const tournaments = await db.Tournament.findAll({ where: { status: "closed" }, raw: true, transaction: t, lock: true });
 
         for ( tournament of tournaments ) {
             const currentSize = tournament.currentSize;
             let stage = 0;
+
             for ( let i = Math.ceil( currentSize / 2 ); i >= 1; i /= 2) {
-                i = Math.ceil( i );
+                if ( i > 1 )
+                    i = Math.ceil( i );
                 stage += 1;
     
                 for (let j = 0; j < i; j++ ) {
                     await db.Duel.create({
                         tournamentId: tournament.id,
                         stage: stage
-                    }, { transaction: t })
+                    }, { transaction: t });
                 }
             }
     
@@ -31,6 +33,8 @@ const createDuels = async () => {
         await t.rollback();
         console.log( "[createDuels] Error occured: " + error );
     }
+
+    console.log( "[createDuels] Successfuly completed..." );
 }
 
 module.exports = createDuels;

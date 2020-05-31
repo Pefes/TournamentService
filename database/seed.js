@@ -1,44 +1,44 @@
 const seed = ( User, Tournament, Participation, Duel ) => {
     User.bulkCreate([{
-        name: "pefes",
-        surname: "pefesowsky",
+        name: "Player1",
+        surname: "Player1",
         email: "w@w",
         password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
         active: 1
     }, {
-        name: "Andrzej",
-        surname: "Andrzejewski",
-        email: "t@t",
-        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
-        active: 1
-    }, {
-        name: "Adam",
-        surname: "Kowalski",
-        email: "r@r",
-        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
-        active: 1
-    }, {
-        name: "Paweł",
-        surname: "Korobczyński",
+        name: "Player2",
+        surname: "Player2",
         email: "e@e",
         password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
         active: 1
     }, {
-        name: "Paweł",
-        surname: "Korobczyński",
-        email: "pawel.korobczyński@student.put.poznan.pl",
+        name: "Player3",
+        surname: "Player3",
+        email: "r@r",
         password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
         active: 1
     }, {
-        name: "Adam",
-        surname: "Kowalski",
-        email: "adam.kowalski@put.poznan.pl",
+        name: "Player4",
+        surname: "Player4",
+        email: "t@t",
         password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
         active: 1
     }, {
-        name: "Andrzej",
-        surname: "Andrzejewski",
-        email: "andrzejos@gmail.com",
+        name: "Player5",
+        surname: "Player5",
+        email: "a@a",
+        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
+        active: 1
+    }, {
+        name: "Player6",
+        surname: "Player6",
+        email: "s@s",
+        password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
+        active: 1
+    }, {
+        name: "Player7",
+        surname: "Player7",
+        email: "d@d",
         password: "$2b$10$dSzC0Ksjk/LxcDR3Pf0nbuKhgkzP5iL77V4RHVA.AE19vQdWOb7Hy",
         active: 1
     }]);
@@ -56,18 +56,20 @@ const seed = ( User, Tournament, Participation, Duel ) => {
         ownerId: 2,
         name: "Tournament2",
         branch: "Branch2",
-        maxSize: 23,
-        currentSize: 23,
-        startDate: "2021-05-08 00:00:00",
-        deadlineDate: "2021-05-08 00:00:05",
+        maxSize: 3,
+        currentSize: 3,
+        startDate: "2019-05-08 00:00:00",
+        deadlineDate: "2019-05-08 00:00:05",
+        status: "closed"
     }, {
         ownerId: 3,
         name: "Tournament3",
         branch: "Branch3",
-        maxSize: 24,
-        currentSize: 24,
-        startDate: "2021-05-09 00:00:00",
-        deadlineDate: "2021-05-09 00:00:05",
+        maxSize: 7,
+        currentSize: 7,
+        startDate: "2019-05-09 00:00:00",
+        deadlineDate: "2019-05-09 00:00:05",
+        status: "closed"
     }]);
 
     Participation.bulkCreate([{
@@ -88,41 +90,44 @@ const seed = ( User, Tournament, Participation, Duel ) => {
         ladderRank: 4
     }, {
         tournamentId: 2,
-        userId: 1
+        userId: 1,
+        ladderRank: 1
     }, {
         tournamentId: 2,
-        userId: 2
+        userId: 2,
+        ladderRank: 1
     }, {
         tournamentId: 2,
-        userId: 2
+        userId: 3,
+        ladderRank: 1
     }, {
         tournamentId: 3,
-        userId: 1
+        userId: 1,
+        ladderRank: 1
     }, {
         tournamentId: 3,
-        userId: 1
+        userId: 2,
+        ladderRank: 2
     }, {
         tournamentId: 3,
-        userId: 1
-    }]);
-
-    Duel.bulkCreate([{
-        tournamentId: 2,
-        firstOpponent: 1,
-        secondOpponent: 1,
+        userId: 3,
+        ladderRank: 3
     }, {
-        tournamentId: 2,
-        firstOpponent: 1,
-        secondOpponent: 2,
+        tournamentId: 3,
+        userId: 4,
+        ladderRank: 4
     }, {
-        tournamentId: 2,
-        firstOpponent: 1,
-        secondOpponent: 2,
+        tournamentId: 3,
+        userId: 5,
+        ladderRank: 5
     }, {
-        tournamentId: 2,
-        firstOpponent: 1,
-        secondOpponent: 2,
-        firstOpponentReply: 1,
+        tournamentId: 3,
+        userId: 6,
+        ladderRank: 6
+    }, {
+        tournamentId: 3,
+        userId: 7,
+        ladderRank: 7
     }]);
 };
 

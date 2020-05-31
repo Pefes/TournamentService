@@ -11,7 +11,7 @@ const assignParticipantsToDuels = async () => {
     const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
 
     try {
-        const tournaments = await db.Tournament.findAll({ where: { status: "readyForDuels" }, transaction: t });
+        const tournaments = await db.Tournament.findAll({ where: { status: "readyForDuels" }, transaction: t, lock: true });
 
         for ( tournament of tournaments ) {
             let duels = await db.Duel.findAll({ 
@@ -28,7 +28,7 @@ const assignParticipantsToDuels = async () => {
             let secondOpponent;
     
             if ( isOdd && participations.length > 0) {
-                let randomIndex = getRandomIndex( 0, participations.length );
+                let randomIndex = getRandomIndex( 0, duels.length );
     
                 for ( let [index, duel] of duels.entries() ) {
                     if ( index === randomIndex ) {
@@ -72,6 +72,8 @@ const assignParticipantsToDuels = async () => {
         await t.rollback();
         console.log( "[assignParticipantsToDuels] Error occured: " + error );
     }
+
+    console.log( "[assignParticipantsToDuels] Successfuly completed..." );
 };
 
 

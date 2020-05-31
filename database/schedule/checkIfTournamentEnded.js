@@ -6,7 +6,7 @@ const checkIfTournamentEnded = async () => {
     const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
 
     try {
-        const tournaments = await db.Tournament.findAll({ where: { status: "ended" }, raw: true, transaction: t });
+        const tournaments = await db.Tournament.findAll({ where: { status: "ended" }, raw: true, transaction: t, lock: true });
 
         for ( tournament of tournaments ) {
             let lastDuel = await db.Duel.findOne({ where: { tournamentId: tournament.id, stage: tournament.maxStage }, raw: true, transaction: t });
@@ -18,6 +18,8 @@ const checkIfTournamentEnded = async () => {
         await t.rollback();
         console.log( "[checkIfTournamentEnded] Error occured: " + error );
     }
+
+    console.log( "[checkIfTournamentEnded] Successfuly completed..." );
 };
 
 

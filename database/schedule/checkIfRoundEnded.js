@@ -6,11 +6,11 @@ const checkIfRoundEnded = async () => {
     const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
 
     try {
-        const tournaments = await db.Tournament.findAll({ where: { status: "playing" }, raw: true, transaction: t });
+        const tournaments = await db.Tournament.findAll({ where: { status: "playing" }, raw: true, transaction: t, lock: true });
 
         for ( tournament of tournaments ) {
-            let duelsAll = await db.Duel.findAll({ where: { tournamentId: tournament.id, stage: tournament.currentStage }, raw: true, transaction: t });
-            let duelsClosed = await db.Duel.findAll({ where: { tournamentId: tournament.id, status: "closed", stage: tournament.currentStage }, raw: true, transaction: t });
+            let duelsAll = await db.Duel.findAll({ where: { tournamentId: tournament.id, stage: tournament.currentStage }, raw: true, transaction: t, lock: true });
+            let duelsClosed = await db.Duel.findAll({ where: { tournamentId: tournament.id, status: "closed", stage: tournament.currentStage }, raw: true, transaction: t, lock: true });
     
             if ( duelsClosed.length === duelsAll.length ) {
                 if ( tournament.maxStage === tournament.currentStage )
@@ -25,6 +25,8 @@ const checkIfRoundEnded = async () => {
         await t.rollback();
         console.log( "[checkIfRoundEnded] Error occured: " + error );
     }
+
+    console.log( "[checkIfRoundEnded] Successfuly completed..." );
 };
 
 

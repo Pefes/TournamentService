@@ -1,4 +1,4 @@
-const datetimeRegEx = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}/;
+const datetimeRegEx = /[0-9]{4}-[0-9]{2}-[0-9]{2}[T\s][0-9]{2}:[0-9]{2}/;
 const whiteSpaceOnly = /^\s*$/;
 
 const isNumber = ( variable ) => { 
@@ -59,6 +59,13 @@ const tournamentInputValidation = ( form, formFiles ) => {
 
     if ( !areFilesValidated( formFiles ) )
         return { validated: false, errorMessage: "Images must be in PNG or JPEG format!" };
+
+
+    if ( form.startDate.indexOf( " " ) > 0 )
+        form.startDate.replace( " ", "T" );
+
+    if ( form.deadlineDate.indexOf( " " ) > 0 )
+        form.deadlineDate.replace( " ", "T" );
             
     return { validated: true };
 };

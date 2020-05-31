@@ -31,7 +31,7 @@ if ( process.env.NODE_ENV !== "PRODUCTION" ) {
         }
     });
 } else {
-    sequelize = new Sequelize( process.env.DATABASE_URL );
+    sequelize = new Sequelize( process.env.DATABASE_URL, { logging: false } );
 }
 
 
