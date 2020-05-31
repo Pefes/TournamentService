@@ -54,9 +54,9 @@ const User = userModel( sequelize, Sequelize ),
 // database connection
 sequelize.sync({ force: true })
 .then(() => {
-    if ( process.env.NODE_ENV !== "PRODUCTION" )
-        seedDb( User, Tournament, Participation, Duel );
-    console.log( "Database & tables created here!" );
+    //if ( process.env.NODE_ENV !== "PRODUCTION" )
+    seedDb( User, Tournament, Participation, Duel );
+    console.log( "[databseConnection] Database & tables created here!" );
 });
 
 

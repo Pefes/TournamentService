@@ -3,7 +3,7 @@ const rimraf = require( "rimraf" );
 
 const removeFiles = ( path ) => {
     rimraf.sync( path );
-    console.log( "Removed images!" );
+    console.log( "[removeFiles] Removed images!" );
 }
 
 module.exports = removeFiles;

@@ -43,7 +43,9 @@ const tournamentInputValidation = ( form, formFiles ) => {
     if ( form.maxSize.length === 0 )
         return { validated: false, errorMessage: "Tournament's size is required!" };
     else if ( !isNumber(form.maxSize) )
-        return { validated: false, errorMessage: "Tournament's size must be a number!" }
+        return { validated: false, errorMessage: "Tournament's size must be a number!" };
+    else if ( form.maxSize < 2 )
+        return { validated: false, errorMessage: "Tournament's size must be in range <2, 100>!" };
     else if ( form.maxSize > 100 )
         return { validated: false, errorMessage: "Tournament's size is too big! (max 100 participants)" };
 

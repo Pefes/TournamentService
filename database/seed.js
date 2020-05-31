@@ -1,3 +1,6 @@
+const copyFiles = require( "../utilities/copyFiles" );
+
+
 const seed = ( User, Tournament, Participation, Duel ) => {
     User.bulkCreate([{
         name: "Player1",
@@ -129,6 +132,10 @@ const seed = ( User, Tournament, Participation, Duel ) => {
         userId: 7,
         ladderRank: 7
     }]);
+
+    for ( let i = 1; i < 4; i++ ) {
+        copyFiles( "uploads/seed/" + i, "public/images/tournaments/" + i );
+    }
 };
 
 module.exports = seed;
