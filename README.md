@@ -64,8 +64,8 @@ https://tournament-service.herokuapp.com/
 
 ## Some outputs
 
-![img1](https://imgur.com/TMNiCIu)
-![img1](https://imgur.com/ooetwrz)
-![img1](https://imgur.com/uXjpVm8)
-![img1](https://imgur.com/k8vwUDj)
-![img1](https://imgur.com/o3wzluL)
+![img1](https://imgur.com/TMNiCIu.png)
+![img1](https://imgur.com/ooetwrz.png)
+![img1](https://imgur.com/uXjpVm8.png)
+![img1](https://imgur.com/k8vwUDj.png)
+![img1](https://imgur.com/o3wzluL.png)
