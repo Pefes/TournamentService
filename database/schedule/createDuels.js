@@ -5,7 +5,7 @@ const db = require( "../databaseConnection" ),
 const createDuels = async () => {
     const t = await db.sequelize.transaction( Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE );
     try {
-        const tournaments = await db.Tournament.findAll({ where: { status: "closed" }, raw: true, transaction: t, lock: t.LOCK.NO_KEY_UPDATE });
+        const tournaments = await db.Tournament.findAll({ where: { status: "closed" }, raw: true, transaction: t, lock: true });
 
         for ( tournament of tournaments ) {
             const currentSize = tournament.currentSize;
