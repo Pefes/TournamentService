@@ -1,6 +1,6 @@
 # Tournament Service
 
-Web application that is service for creating your own tournaments for different branches. Made on studies in Poznan University of Technology.
+Web application that is service for creating your own tournaments for different branches. Made on studies in Poznan University of Technology. Frontend made with pure HTML & CSS & Javascript.
 
 ## Getting Started
 
