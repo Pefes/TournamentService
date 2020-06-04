@@ -10,7 +10,10 @@ const checkTournamentStatus = async () => {
 
         for ( tournament of tournaments ) {
             if ( new Date(tournament.startDate) - new Date() < 0 ) {
-                await db.Tournament.update({ status: "closed" }, { where: { id: tournament.id }, transaction: t });
+                if ( tournament.currentSize >= 2 )
+                    await db.Tournament.update({ status: "closed" }, { where: { id: tournament.id }, transaction: t });
+                else
+                    await db.Tournament.update({ status: "cancelled" }, { where: { id: tournament.id }, transaction: t });
             }
         }
 
