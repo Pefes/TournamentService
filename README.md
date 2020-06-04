@@ -59,6 +59,7 @@ https://tournament-service.herokuapp.com/
 
 ## Built With
 
+* Pure HTML & CSS & Javascript - Frontend
 * [Node.js](https://nodejs.org/en/docs/) - Technology used
 * [Express](https://expressjs.com/en/api.html) - Framework used
 * [EJS](https://ejs.co/#docs) - Used to generate html files
