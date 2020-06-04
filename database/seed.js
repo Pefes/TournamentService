@@ -52,8 +52,8 @@ const seed = ( User, Tournament, Participation, Duel ) => {
         branch: "Branch1",
         maxSize: 4,
         currentSize: 4,
-        startDate: "2020-05-13 18:36:00",
-        deadlineDate: "2020-05-08 00:00:05",
+        startDate: "2020-05-13T18:36",
+        deadlineDate: "2020-05-08T00:00",
         status: "closed"
     }, {
         ownerId: 2,
@@ -61,8 +61,8 @@ const seed = ( User, Tournament, Participation, Duel ) => {
         branch: "Branch2",
         maxSize: 3,
         currentSize: 3,
-        startDate: "2019-05-08 00:00:00",
-        deadlineDate: "2019-05-08 00:00:05",
+        startDate: "2019-05-08T00:00",
+        deadlineDate: "2019-05-08T00:00",
         status: "closed"
     }, {
         ownerId: 3,
@@ -70,8 +70,8 @@ const seed = ( User, Tournament, Participation, Duel ) => {
         branch: "Branch3",
         maxSize: 7,
         currentSize: 7,
-        startDate: "2019-05-09 00:00:00",
-        deadlineDate: "2019-05-09 00:00:05",
+        startDate: "2019-05-09T00:00",
+        deadlineDate: "2019-05-09T00:00",
         status: "closed"
     }]);
 
