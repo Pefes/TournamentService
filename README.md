@@ -38,6 +38,14 @@ Go into application's main directory
 cd ./TournamentService
 ```
 
+Run command
+
+```
+npm install
+```
+
+Run MySQL server in background (XAMPP for example)
+
 Run the application
 
 ```
