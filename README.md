@@ -1,6 +1,6 @@
 # Tournament Service
 
-Web application that is service for creating your own tournaments for different branches. Made on studies in Poznan University of Technology.
+Web application that is service for creating your own tournaments for different branches. Made on studies in Poznan University of Technology. Frontend made with pure HTML & CSS & Javascript.
 
 ## Getting Started
 
@@ -38,6 +38,14 @@ Go into application's main directory
 cd ./TournamentService
 ```
 
+Run command
+
+```
+npm install
+```
+
+Run MySQL server in background (XAMPP for example)
+
 Run the application
 
 ```
@@ -51,6 +59,7 @@ https://tournament-service.herokuapp.com/
 
 ## Built With
 
+* Pure HTML & CSS & Javascript - Frontend
 * [Node.js](https://nodejs.org/en/docs/) - Technology used
 * [Express](https://expressjs.com/en/api.html) - Framework used
 * [EJS](https://ejs.co/#docs) - Used to generate html files
